@@ -33,18 +33,19 @@
   </head>
   <body>
     <header class="container-fluid"></header>
-        {% if messages %}
+        
+    {% if messages %}
         <div class="messages"></div>
-        {% endif %}
+    {% endif %}
 
-     {% block page_header %}
-     {% endblock %}
+    {% block page_header %}
+    {% endblock %}
 
-     {% block page_content %}
-     {% endblock %}
+    {% block page_content %}
+    {% endblock %}
 
-     {% block load_last_js %}
-     {% endblock %}
+    {% block load_last_js %}
+    {% endblock %}
 
   </body>
 </html>
