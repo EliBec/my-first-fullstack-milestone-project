@@ -1,0 +1,182 @@
+/*
+body {
+    background: url('/media/kayak_banner.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px); 
+    height: 50vh;
+    color: #555;
+    font-family: 'Lato';
+} */
+
+
+.nav-wrapper {
+    background-color: #36A21E !important;
+}
+
+.navbar {
+   background-color: #36A21E !important; 
+}
+
+.navbar-nav > li > a {
+    color: #fafafa !important;
+}
+
+.nav-style {
+    padding: 15px;
+}
+
+.shop-menu, .shop-menu > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: rgb(202, 245, 199); 
+}
+
+.shop-menu > li > a {
+    color: black;
+} 
+
+.drop-pad {
+    padding:10px;
+    margin-left: 25px; 
+    background: rgb(202, 245, 199);  /* #CDFCC5; */
+}
+
+
+
+/* Shopping Cart and Account Section */
+.cart-section ul > li > a {
+    display: inline-block !important;
+    padding-right:45px;   /*eb*/
+}
+
+.logo-section{
+    position: fixed; /*absolute;*/
+    left:28%;
+    top:1%;
+}
+
+
+/****** Banner Section *******/
+.banner-home1 {
+    background:url('/media/kayak_banner.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 85vh;
+}
+
+.banner-home2 {
+    background:url('/media/bicycle_banner.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 85vh;
+}
+.banner-home3 {
+    background:url('/media/paddleboard_banner.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 85vh;
+}
+
+/**** Google Maps ****/
+#googlemap{
+    width: 50%;
+    height: 200px;
+   /* margin-right: 6%;
+    margin-left: 6.5%;*/
+    margin: auto;
+}
+    
+
+/**** Highlight Section  *****/
+.highlight-section {
+    height: 50vh;
+    background-color: rgb(202, 245, 199);
+}
+
+
+/***************  Footer *****************/
+/* Style footer section */
+.footer-title {
+    padding:5px;
+    font-size: 19px;
+    text-align: center;  /* eb*/
+}
+
+#menu-widget-2, #social-media  /*, #location-info*/ {    
+    padding: 15px;
+    text-align: center;  /*eb*/
+}
+
+footer {
+   background-color:#1A8849; 
+   min-height: 100px;
+ }
+
+#footer-details {
+   padding: 25px;
+ }
+
+.copyright-statement {
+    font-size: 12px;
+    text-align: center; /* eb */
+ }
+
+#menu-widget-2 ul {
+  padding-left: 85px;
+  list-style: none;
+ }
+
+#menu-widget-2 li{
+   font-size: 18px;
+ }
+
+#menu-widget-2 li a {
+   color: inherit;
+}
+
+#menu-widget-2 li a:hover{
+    opacity: .8;
+    text-decoration: none;
+ }
+
+#social-media {            
+    display: block; 
+    text-align: center; /* eb */
+} 
+
+#social-media a {
+    padding: 10px;
+ }
+
+#social-media a:hover{
+    opacity: .8;
+ }
+
+ #location-info {
+    text-align: center;
+ }
+
+
+/****** Media Queries  *****/
+
+@media (min-width: 1025px) {
+    .logo-section {
+        display: inline-block;
+        position: static;
+    }
+}
+
+@media only screen and (min-width: 993px){
+    .nav-style > li { 
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+
+@media only screen and (min-width: 767px) and (max-width:1024px){
+    .logo-section {
+            position: fixed; /*absolute;*/
+            left: 44%;
+            top: 1%;
+        }
+}
+
+
