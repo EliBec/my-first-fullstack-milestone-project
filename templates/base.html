@@ -79,15 +79,19 @@
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">(current)</span>Shop
                         </a>
-                        <div class="dropdown-menu drop-pad" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu drop-pad" aria-labelledby="navbarDropdown">  
                             <ul class="shop-menu">
                                 <li><a href="#">Bikes</a></li>
+                                <div class="dropdown-divider w-25"></div>
                                     <ul class="shop-menu">
                                         <li><a href="#">Road</a></li>
                                         <li><a href="#">Mountain</a></li>
                                     </ul>
                                 <li><a href="#">Paddleboards</a></li>
+                                <div class="dropdown-divider w-75"></div>
                                 <li><a href="#">Kayaks</a></li>
+                                <div class="dropdown-divider w50"></div>
+                                <li><a href="#">All Products</a></li>
                             </ul>
                         </div>
                     </li>
@@ -116,15 +120,37 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                                <a href="#" class="dropdown-item">Manage Products</a>
+                            {% if request.user.is_authenticated %}
+                                    {% if request.user.is_superuser %}
+                            
+                                        <a href="#" class="dropdown-item">Manage Products</a>
+                                     {% endif %}
+                                    
                                 <a href="#" class="dropdown-item">My Profile</a>
+                                <!--<a href="{# url 'user_profile' #}" class="dropdown-item">My Profile</a> -->
                                 <a href="#" class="dropdown-item">Logout</a>
+                                <!-- <a href="{# url 'account_logout' #}" class="dropdown-item">Logout</a> -->
+                            {% else %}
                                 <a href="#" class="dropdown-item">Register</a>
+                                <!-- <a href="{# url 'account_signup' #}" class="dropdown-item">Register</a> -->
                                 <a href="#" class="dropdown-item">Login</a>
+                            {% endif %}  
                         </div>
                         <a class="nav-link nav-link-icon" href="#" title="Shopping cart" aria-label="View shopping cart">
+                        <!--
+                            <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{# url 'view_bag' #}">
+                        -->
                             <div>
                                 <i class="fa fa-shopping-cart" style="font-size:24px;color:white"></i>
+
+                                <!--
+                                <p class="my-0">
+                                    {% if bag.total_quantity > 0 %}
+                                        {{ bag.total_quantity }}
+                                    {% endif %}
+                                </p>
+                                --> 
+
                             </div>
                         </a>
                     </li>
@@ -146,9 +172,24 @@
             <div class="col-12 highlight-section"></div>
         </div>
     </div>
-        
+
+    <!-- message code taken from CI's project example and Bootstrap toasts -->   
     {% if messages %}
-        <div class="messages"></div>
+        <div class="message-container">
+            {% for message in messages %}
+                {% with message.level as level %}
+                    {% if level == 40 %}
+                         {% include 'includes/toasts/toast_error.html' %}
+                    {% elif level == 30 %}
+                         {% include 'includes/toasts/toast_warning.html' %}
+                    {% elif level == 25 %}
+                        {% include 'includes/toasts/toast_success.html' %}
+                    {% else %}
+                         {% include 'includes/toasts/toast_info.html' %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
     {% endif %}
 
     {% block page_header %}

@@ -42,6 +42,12 @@ body {
     background: rgb(202, 245, 199);  /* #CDFCC5; */
 }
 
+.dropdown-divider {
+    margin:.2rem 0;
+    border-top: .1px solid black; /* rgb(137, 145, 136);*/
+}
+
+
 
 
 /* Shopping Cart and Account Section */
@@ -79,8 +85,6 @@ body {
 #googlemap{
     width: 50%;
     height: 200px;
-   /* margin-right: 6%;
-    margin-left: 6.5%;*/
     margin: auto;
 }
     

@@ -14,7 +14,7 @@ class Product(models.Model):
     sku = models.CharField(max_length=254, null=False, blank=True)
     brand = models.CharField(max_length=50, null=False, blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False)
-    has_sizes = models.BooleanField(default=False, null=False, blank=False)
+    has_sizes = models.BooleanField(default=True, null=False, blank=False)
     image_url = models.URLField(null=False, blank=True)
     image = models.ImageField(max_length=1024, null=False, blank=True)
     style = models.CharField(max_length=15, choices=Pref.style_choices)
@@ -34,7 +34,7 @@ class Category(models.Model):
 
     name = models.CharField(max_length=50, null=True, blank=True)
     friendly_name = models.CharField(max_length=50, null=True, blank=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -52,7 +52,7 @@ class Subcategory(models.Model):
                                  blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=40, null=True, blank=True)
     friendly_name = models.CharField(max_length=40, null=True, blank=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

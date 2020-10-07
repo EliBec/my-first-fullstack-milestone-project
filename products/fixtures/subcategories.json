@@ -1,0 +1,32 @@
+[
+  {
+    "model": "products.subcategory",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "name": "cruiser",
+      "friendly_name": "Cruiser",
+      "active": true
+    }
+  },
+  {
+    "model": "products.subcategory",
+    "pk": 4,
+    "fields": {
+      "category": 2,
+      "name": "fitness",
+      "friendly_name": "Fitness",
+      "active": true
+    }
+  },
+  {
+    "model": "products.subcategory",
+    "pk": 5,
+    "fields": {
+      "category": 2,
+      "name": "electric",
+      "friendly_name": "Electric Assist",
+      "active": true
+    }
+  }
+]

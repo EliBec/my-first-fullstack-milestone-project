@@ -1,0 +1,1 @@
+[{"model": "products.subcategory", "pk": 1, "fields": {"category": 2, "name": "road", "friendly_name": "Road", "active": true}}, {"model": "products.subcategory", "pk": 2, "fields": {"category": 2, "name": "mountain", "friendly_name": "Mountain", "active": true}}]
