@@ -88,11 +88,27 @@ body {
     margin: auto;
 }
     
-
 /**** Highlight Section  *****/
 .highlight-section {
     height: 50vh;
     background-color: rgb(202, 245, 199);
+}
+
+.overlap {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(227, 241, 226);
+  z-index: -1;
+  }
+
+
+.top-section{
+    height: 20vh;
+    width: 100%;
 }
 
 
