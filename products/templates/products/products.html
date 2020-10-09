@@ -14,7 +14,7 @@
 
     <!-- breadcrumb -->
     <div class="row">
-        <div class="col-12">   <!-- ml-5 pl-5 -->
+        <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb pl-0">
                     <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a><i class="fa fa-caret-right mx-2"
@@ -52,25 +52,27 @@
     </div>        
     <!-- products section-->
     <div class="row mb-15">
-        {% if products %}
+
             {% for product in products %}
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 ml-5 text-center">
                     {% if product.image %}
-                        <a href="#">
+                        <a href="{% url 'display_product_detail' product.id %}">
                             <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
                         </a>
                     {% else %}
-                        <a href="">
+                        <a href="{% url 'display_product_detail' product.id %}">
                             <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
                         </a>
                     {% endif %}
                     <p class="product-brand">{{ product.brand }}</p>
-                    <p class="product-title">{{ product.name }}</p>
+                    <a href="{% url 'display_product_detail' product.id %}">
+                        <p class="product-title">{{ product.name }}</p>
+                    </a>
                     <p class="product-price">${{ product.price }}</p>
-                </div>    
-            {% endfor %}    
-        {% else %}
-        {% endif %}
+                </div> 
+            {% empty %}
+                <p>No products found!</p>
+            {% endfor %}
     </div>
 </div> 
 

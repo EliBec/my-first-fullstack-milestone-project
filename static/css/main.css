@@ -168,6 +168,13 @@ color: #455a64; }
     border: .5px solid black;
 }
 
+/**** product detail ******/
+
+.img-detail{
+    width: 100%;
+}
+
+
 
 
 /***************  Footer *****************/

@@ -104,10 +104,12 @@
                         <a class="nav-link" href="#">About us</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+
+                <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'products' %}">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> 
+                    <input class="form-control mr-sm-2" type="search" name = "srch_qry" placeholder="Search" aria-label="Search"> 
                 </form>
+
             </div>
             <div id="navbar-icons-desktop" class="d-none d-lg-inline-block cart-section">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
