@@ -13,30 +13,55 @@
 <div class="container">
 
     <!-- breadcrumb -->
-    <div class="row">
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb pl-0">
-                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a><i class="fa fa-caret-right mx-2"
-          aria-hidden="true"></i></li>
-                    <li class="breadcrumb-item active" aria-current="page">All Products</li>
-                </ol>
-            </nav>
+    {% if search_method == "menu_search" %}
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb pl-0">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a><i class="fa fa-caret-right mx-2"
+            aria-hidden="true"></i></li>
+                        {% if subcategory and category %}
+                            {% for cat in category %}
+                                <li class="breadcrumb-item" aria-current="page">{{ cat.friendly_name|title }}
+                                <i class="fa fa-caret-right mx-2" aria-hidden="true"></i></li>
+                             {% endfor %}   
+                            <li class="breadcrumb-item active" aria-current="page">{{ subcategory|title }}</li>
+                        {% elif category and not subcategory %}
+                            {% for cat in category %}  
+                                <li class="breadcrumb-item active" aria-current="page">{{ cat.friendly_name|title }}</li>
+                            {% endfor %} 
+                        {% elif not category and not subcategory %}
+                            <li class="breadcrumb-item active" aria-current="page">All Products</li>
+                        {% endif %}    
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </div>
+
+        <!---
+        <div class="row">
+            <div class="col-12 mb-4 ">
+                <h4>All Products</h4>
+            </div>
+        </div>
+        --> 
+
+    {% elif search_method == "search_form" %}
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h4>Search Results:</h4>
+            </div>
+        </div>
+    {% endif %}    
 
     <!-- page subtitle --> 
-    <div class="row">
-        <div class="col-12 mb-4 ">  <!-- ml-5 pl-5-->
-            <h4>All Products</h4>
-        </div>
-    </div>
+
        
     <div class="divider-x mb-5"></div> 
 
     <!-- sort/filter drow-down -->
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 mb-5">   <!-- ml-5 pl-5 -->
+        <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
              <form action="">
                 <p>
                     <label> Sort by: </label>

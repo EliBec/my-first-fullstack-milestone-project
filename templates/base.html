@@ -80,17 +80,30 @@
                         </a>
                         <div class="dropdown-menu drop-pad" aria-labelledby="navbarDropdown">  
                             <ul class="shop-menu">
-                                <li><a href="#">Bikes</a></li>
+                                <li><a href="{% url 'products' %}?category=bike">Bikes</a></li>
                                 <div class="dropdown-divider w-25"></div>
                                     <ul class="shop-menu">
-                                        <li><a href="#">Road</a></li>
-                                        <li><a href="#">Mountain</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=road">Road</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=mountain">Mountain</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=fitness">Fitness</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=cruiser">Cruiser</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=electric">Electric Assist</a></li>
                                     </ul>
-                                <li><a href="#">Paddleboards</a></li>
+                                <li class="mt-3"><a href="{% url 'products' %}?category=paddleboard">Paddleboards</a></li>
                                 <div class="dropdown-divider w-75"></div>
-                                <li><a href="#">Kayaks</a></li>
+                                    <ul class="shop-menu">
+                                        <li><a href="{% url 'products' %}?subcategory=8'">8'</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=10'">10'</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=11'">11'</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=12'">12'</a></li>
+                                    </ul>
+                                <li class="mt-3"><a href="{% url 'products' %}?category=kayak">Kayaks</a></li>
                                 <div class="dropdown-divider w50"></div>
-                                <li><a href="{% url 'products' %}">All Products</a></li>
+                                    <ul class="shop-menu">
+                                        <li><a href="{% url 'products' %}?subcategory=solo">Solo</a></li>
+                                        <li><a href="{% url 'products' %}?subcategory=tandem">Tandem</a></li>
+                                    </ul>    
+                                <li class="mt-3"><a href="{% url 'products' %}"><strong>All Products</strong></a></li>
                             </ul>
                         </div>
                     </li>
