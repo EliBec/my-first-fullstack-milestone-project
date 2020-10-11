@@ -175,7 +175,33 @@ color: #455a64; }
 }
 
 
+/****** Buttons ********/
+.btn-border-style {
+    border:1px #36250C solid;
+    background:#fafafa;
+    color: black !important; 
+    border-radius: 3px !important;
+}
 
+.btn-border-style:hover,
+.btn-border-style:active,
+.btn-border-style:focus {
+    background: #388e3c;
+    color: #fafafa !important; 
+}
+
+.std-button {
+    border:1px black solid;
+    background:#388e3c;
+    color: #fafafa !important; 
+    border-radius: 3px !important;
+}
+
+.std-button:hover,
+.std-button:active,
+.std-button:focus {
+    background:#2f8133; 
+}
 
 /***************  Footer *****************/
 
@@ -192,8 +218,9 @@ color: #455a64; }
 }
 
 footer {
-   background-color:#1A8849; 
+   background-color:#36250C; /*#422E0F; */ /*#1A8849;  */
    min-height: 100px;
+   color:#fafafa;
  }
 
 #footer-details {
@@ -264,5 +291,3 @@ footer {
             top: 1%;
         }
 }
-
-
