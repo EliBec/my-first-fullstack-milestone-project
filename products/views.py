@@ -11,11 +11,20 @@ def display_all_products(request):
     search_query = None
     category = None
     subcategory = None
-    search_method = "menu_search"
+    search_method = "menusearch"
 
     template = 'products/products.html'
 
     if request.GET:
+
+        # call sorting logic function if we get 'sort' as parameter
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+        if 'direction' in request.GET:
+            direction = request.GET['direction']
+
+            products = sorting_by(sortkey, direction, products)
+
         # logic for Search form
         if 'srch_qry' in request.GET:
             search_query = request.GET['srch_qry']
@@ -28,55 +37,70 @@ def display_all_products(request):
                 Q(brand__icontains=search_query)
 
             products = products.filter(query_result)
-            search_method = "search_form"
-
-        if 'category' in request.GET:
-            cat_selected = request.GET['category']
-
-            """
-            get queryset from Product model for the category id
-            based on the selected subcategory name
-            code ref. https://overiq.com/django-1-11/django-orm-basics-part-2/
-            """
-            cat_products = Product.objects.filter(category__name=cat_selected)
-            # print(cat_products)
-            products = cat_products
-
-            category_search = Category.objects.filter(name=cat_selected)
-            # print(category_search)
-
-            category = category_search
-            print(category)
-
-            # category = cat_selected
-
-            search_method = "menu_search"
-
-        if 'subcategory' in request.GET:
-            subcat_selected = request.GET['subcategory']
-
-            """get queryset from Product model for the subcategory id
-            based on the selected subcategory name"""
-            subcat_products = \
-                Product.objects.filter(subcategory__name=subcat_selected)
-
-            products = subcat_products
-            print(products)
-
-            category_search = \
-                Category.objects.filter(subcategory__name=subcat_selected)
-            # print(category_search)
-
-            category = category_search
-            print(category)
-
-            subcategory = subcat_selected
-
-            search_method = "menu_search"
+            search_method = "searchform"
 
     context = {
         "products": products,
         "search_term": search_query,
+        "category": category,
+        "subcategory": subcategory,
+        "search_method": search_method
+    }
+
+    return render(request, template, context)
+
+
+def products_by_category(request, category_name):
+    print(category_name)
+
+    subcategory = None
+    category = None
+
+    # find the category record first
+    category_search = Category.objects.filter(name=category_name)
+
+    #  if found, then find linked products and category
+    if category_search:
+        cat_products = Product.objects.filter(category__name=category_name)
+        products = cat_products
+        category = category_search
+
+    # if category not found then, it means the subcategory was passed.
+    # so, search subcategory. If found, then get linked products and category
+    else:
+        subcategory_search = Subcategory.objects.filter(name=category_name)
+
+        """
+        queryset codes below learned from:
+        https://overiq.com/django-1-11/django-orm-basics-part-2/
+        """
+        if subcategory_search:
+            cat_products = \
+                Product.objects.filter(subcategory__name=category_name)
+
+            category_search = \
+                Category.objects.filter(subcategory__name=category_name)
+
+            products = cat_products
+            subcategory = subcategory_search
+            category = category_search
+
+    if request.GET:
+
+        # call sorting logic function if we get 'sort' as parameter
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+        if 'direction' in request.GET:
+            direction = request.GET['direction']
+
+            products = sorting_by(sortkey, direction, products)
+
+    template = 'products/products_categories.html'
+
+    search_method = "breadcrumb"
+
+    context = {
+        "products": products,
         "category": category,
         "subcategory": subcategory,
         "search_method": search_method
@@ -96,3 +120,17 @@ def display_product_detail(request, product_id):
     }
 
     return render(request, template, context)
+
+
+def sorting_by(sortkey, direction, products):
+
+    if sortkey == 'category':
+        sortkey = 'category__name'
+    if sortkey == 'subcategory':
+        sortkey = 'subcategory__name'
+    if direction == 'desc':
+        sortkey = f'-{sortkey}'  # the - reverses the sorting order
+
+    products_sorted = products.order_by(sortkey)
+
+    return products_sorted

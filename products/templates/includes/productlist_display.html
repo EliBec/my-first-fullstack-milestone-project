@@ -1,0 +1,29 @@
+<div class="row mb-15">
+
+            {% for product in products %}
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 ml-5 text-center">
+                    {% if product.image %}
+                        <a href="{% url 'display_product_detail' product.id %}">
+                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'display_product_detail' product.id %}">
+                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                        </a>
+                    {% endif %}
+                    <p class="product-brand">{{ product.brand }}</p>
+                    <a href="{% url 'display_product_detail' product.id %}">
+                        <p class="product-title">{{ product.name }}</p>
+                    </a>
+                    <p class="product-price">${{ product.price }}</p>
+                    <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
+                            {{ product.category.friendly_name }}
+                    </a>  &#62;
+                    <a class="text-muted" href="{% url 'products' %}?category={{ product.subcategory.name }}">
+                            {{ product.subcategory.friendly_name }}
+                    </a>
+                </div> 
+            {% empty %}
+                <p>No products found!</p>
+            {% endfor %}
+    </div>

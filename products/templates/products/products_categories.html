@@ -12,27 +12,34 @@
 <div class="overlap"></div>
 <div class="container">
 
-    {% if search_method == "menusearch" %}
-
+    <!-- breadcrumb -->
+    {% if search_method == "breadcrumb" %}
         <div class="row">
-            <div class="col-12 mb-4 ">
-                <h4>All Products</h4>
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb pl-0">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a><i class="fa fa-caret-right mx-2"
+            aria-hidden="true"></i></li>
+                        {% if category and subcategory %}
+                            {% for cat in category %}
+                                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products_by_category' cat.name %}">{{ cat.friendly_name|title }}</a>
+                                <i class="fa fa-caret-right mx-2" aria-hidden="true"></i></li>
+                            {% endfor %}
+                            {% for subcat in subcategory %}
+                                 <li class="breadcrumb-item" aria-current="page">{{ subcat.friendly_name|title }}</li>
+                            {% endfor%}
+                        {% elif category and not subcategory %}
+                            {% for cat in category %}
+                                <li class="breadcrumb-item" aria-current="page">{{ cat.friendly_name|title }}</li>
+                            {% endfor%}
+                        {% endif %}    
+                    </ol>
+                </nav>
             </div>
         </div>
+    {% endif %}       
 
-    <!-- move this to an include -->
-    {% elif search_method == "searchform" %}
-        <div class="row">
-            <div class="col-12 mb-4">
-                {% if search_term %}
-                    <h5>Your Search:   <small> "{{ search_term }}"</small></h5>
-                        <p> Number of results: {{ products|length }}</p>
-                {% endif %}
-            </div>
-        </div>
-    {% endif %}    
-
-       
+    <!-- page subtitle -->     
     <div class="divider-x mb-5"></div> 
 
     <!-- sort/filter drow-down -->
@@ -46,12 +53,14 @@
                         <option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
                         <option value = "brand_asc"><a href="{% url 'products' %}?sort=brand&direction=asc">Brand A to Z</a></option>  
                         <option value = "brand_desc"><a href="{% url 'products' %}?sort=brand&direction=desc">Brand Z to A</a></option>  
-                        <option value = "category_asc"><a href="{% url 'products' %}?sort=category&direction=asc">Category A to Z</a></option>  
-                        <option value = "category_desc"><a href="{% url 'products' %}?sort=category&direction=desc">Category Z to A</a></option> 
+                        {% if not subcategory %}
+                            <option value = "subcategory_asc"><a href="{% url 'products' %}?sort=subcategory&direction=asc">Style A to Z</a></option>  
+                            <option value = "subcategory_desc"><a href="{% url 'products' %}?sort=subcategory&direction=desc">Style Z to A</a></option> 
+                        {% endif %}
                     </select> 
                 </p>
         </div>
-    </div>        
+    </div>  
 
     <!-- products display section-->
     {% include 'includes/productlist_display.html' %}
@@ -110,5 +119,6 @@
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
 </script>
+
 
 {% endblock %}
