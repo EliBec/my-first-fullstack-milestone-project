@@ -12,6 +12,8 @@ def display_all_products(request):
     category = None
     subcategory = None
     search_method = "menusearch"
+    sortkey = None
+    direction = None
 
     template = 'products/products.html'
 
@@ -23,7 +25,7 @@ def display_all_products(request):
         if 'direction' in request.GET:
             direction = request.GET['direction']
 
-            products = sorting_by(sortkey, direction, products)
+        products = sorting_by(sortkey, direction, products)
 
         # logic for Search form
         if 'srch_qry' in request.GET:
@@ -51,10 +53,12 @@ def display_all_products(request):
 
 
 def products_by_category(request, category_name):
-    print(category_name)
 
+    products= None
     subcategory = None
     category = None
+    direction = None
+    sortkey = None
 
     # find the category record first
     category_search = Category.objects.filter(name=category_name)
@@ -93,7 +97,7 @@ def products_by_category(request, category_name):
         if 'direction' in request.GET:
             direction = request.GET['direction']
 
-            products = sorting_by(sortkey, direction, products)
+        products = sorting_by(sortkey, direction, products)
 
     template = 'products/products_categories.html'
 

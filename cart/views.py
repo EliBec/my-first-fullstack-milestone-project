@@ -8,7 +8,7 @@ def display_cart(request):
     context = {
         'cart_message': cart_msg,
     }
-    return render(request, 'cart/cart.html', context)
+    return render(request, 'cart/cart.html')
 
 
 def add_to_cart(request, item_id):
@@ -35,13 +35,6 @@ def add_to_cart(request, item_id):
         session_cart[item_id] = item_quantity
 
     # save the new asssigned quantity value into the session's cart
-    request.session['sesssion_cart'] = session_cart
-    print(request.session['sesssion_cart'])
-
-    # my code - save the item count and will send it back to the page
-    # item_count = request.session['sesssion_cart']
-    # print(item_count)
-
+    request.session['session_cart'] = session_cart
+    
     return redirect(redirect_url)
-
-

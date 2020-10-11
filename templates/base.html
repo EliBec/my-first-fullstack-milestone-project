@@ -152,18 +152,16 @@
                                 <a href="#" class="dropdown-item">Login</a>
                             {% endif %}  
                         </div>
+                    </li>
+                    <li>
                         <a class="nav-link nav-link-icon" href="{% url 'display_cart' %}" title="Shopping cart" aria-label="View shopping cart">
                             <div>
                                 <i class="fa fa-shopping-cart" style="font-size:24px;color:white"></i>
-
-                                <!--
                                 <p class="my-0">
-                                    {% if bag.total_quantity > 0 %}
-                                        {{ bag.total_quantity }}
+                                    {% if cart_product_count > 0 %}
+                                        {{ cart_product_count }}
                                     {% endif %}
                                 </p>
-                                --> 
-
                             </div>
                         </a>
                     </li>
