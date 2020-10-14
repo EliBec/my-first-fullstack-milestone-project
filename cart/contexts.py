@@ -12,7 +12,8 @@ def cart_contents(request):
 
     session_cart = request.session.get('session_cart', {})
 
-    # item will be the key and quantity is the value from the sesssion_cart dictionary
+    # item will be the key and quantity \
+    # is the value from the sesssion_cart dictionary
     for item_id, item_quantity in session_cart.items():
         cart_product = get_object_or_404(Product, pk=item_id)
         cart_total += item_quantity * cart_product.price
@@ -23,7 +24,6 @@ def cart_contents(request):
             'item_quantity': item_quantity,
             'cart_product': cart_product,
         })
-
 
     delivery_cost = \
         cart_total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
