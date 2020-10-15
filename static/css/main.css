@@ -167,6 +167,11 @@
     border: .5px solid black;
 }
 
+.update-link, 
+.remove-item {
+    cursor: pointer;
+}
+
 /**** product detail ******/
 
 .img-detail{
@@ -203,6 +208,10 @@
 
 .hr-bg {
     background-color: #fafafa; /* #cccfcd; */
+}
+
+.links-align {
+    text-align: center;
 }
 
 /****** Buttons ********/
@@ -320,4 +329,19 @@ footer {
             left: 44%;
             top: 1%;
         }
+
+    .links-align {
+        text-align: unset;
+    }
+}      
+
+
+@media only screen and (min-width: 767px) {
+    .links-align {
+        text-align: unset;
+    }
+    #a-padding{ 
+        padding-right: 5px;
+    }
+
 }
