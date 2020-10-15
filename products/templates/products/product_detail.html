@@ -26,8 +26,6 @@
             </nav>
         </div>
     </div>
-
-
     <div class="row">
         {% if product %}
             <div class="col-lg-6 col-md-6 col-sm-12 mb-5"> 
@@ -47,20 +45,20 @@
                     <p>${{ product.price }}</p>
                     <p>Product Color</p>
                     <p>{{ product.short_desc}}</p>
-                    {% if product.has_sizes %}
-                        <div class="col-12 p-0">
-                            <p><strong>Size:</strong></p>
-                            <select class="form-control rounded-0 w-50" name="product_size" id='id_product_size'>
-                                <option value="xs">XS</option>
-                                <option value="s">S</option>
-                                <option value="m" selected>M</option>
-                                <option value="l">L</option>
-                                <option value="xl">XL</option>
-                            </select>
-                        </div>
-                    {% endif %}
                     <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
                         {% csrf_token %}
+                        {% if product.has_sizes %}
+                            <div class="col-12 p-0">
+                                <p><strong>Size:</strong></p>
+                                <select class="form-control rounded-0 w-50" name="product_size" id="id_product_size">
+                                    <option value="xs">XS</option>
+                                    <option value="s">S</option>
+                                    <option value="m" selected>M</option>
+                                    <option value="l">L</option>
+                                    <option value="xl">XL</option>
+                                </select>
+                            </div>
+                        {% endif %}
                         <div class="form-row">
                             <div class="col-12">
                                 <p class="mt-3"><strong>Quantity:</strong></p>
@@ -70,17 +68,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- section for pick up at the store or delivery -->
+                            <!-- section for pick up at the store or delivery 
                             <div class="text-left p-1">
                                 <div class="radio"> 
-                                    <input id="delivery" type="radio" name="shipselect" value=""/>
+                                    <input id="delivery" type="radio" name="ship-or-pickup" value="delivery"/>
                                     <label id="shipTolbl" for="shipTo">Delivery</label>
                                 </div>
                                 <div class="radio">
-                                    <input id="storepickup" type="radio" name="shipselect" checked value=""/>
+                                    <input id="storepickup" type="radio" name="ship-or-pickup" checked value="storepickup"/>
                                     <label id="storePickuplbl" for="storePickup">Pick up in store</label>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- some of the code below was take from CI project example and modified for this project -->
                             <div class="col-12">
                                 <a href="{% url 'products' %}" class="btn btn-border-style rounded-0 mt-5">

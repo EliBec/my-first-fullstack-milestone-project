@@ -21,7 +21,7 @@
         <div class="col">
             {% if cart_item_list %}
                 <div class="table-responsive rounded">
-                    <h5> Your Shoopping Cart {% if cart_product_count > 0 %} ({{ cart_product_count }}) item{{ cart_product_count|pluralize }} {% endif %}
+                    <h5> Your Shoopping Cart {% if cart_product_count != 0 %} ({{ cart_product_count }}) item{{ cart_product_count|pluralize }} {% endif %}
                     </h5>
                     <table style="width:100%">
                         <tr class="hr-bg">
@@ -47,7 +47,13 @@
                             <td class="cart-col py-3" style="width:25%">
                                 <p class="my-0">{{ item.cart_product.name }}</p>
                                 <p class="my-2">sku: {{ item.cart_product.sku }}</p>
-                                <p class="my-2"><strong>Size: </strong>{% if product.has_sizes %}{{ item.cat_product.size }}{% else %}N/A{% endif %}</p>
+                                <p class="my-2"><strong>Size: </strong>
+                                    {% if item.cart_product.has_sizes %}
+                                        {{ item.product_size|upper }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </p>
                             </td>
                             <td class="cart-col py-3">
                                 <p class="my-0">{{ item.cart_product.price }}</p>

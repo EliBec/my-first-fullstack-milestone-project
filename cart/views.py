@@ -3,11 +3,6 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def display_cart(request):
-    cart_msg = "Let's keep shopping!"
-    # template = "home/index.html"
-    context = {
-        'cart_message': cart_msg,
-    }
     return render(request, 'cart/cart.html')
 
 
@@ -21,20 +16,41 @@ def add_to_cart(request, item_id):
 
     redirect_url = request.POST.get('redirect_url')
 
-    """
-    Create an empty (or check if already exsists) session's cart
-    dictionary var which will keep track of item qty
-    added to the card during the user's session
-    """
-    session_cart = request.session.get('session_cart', {})
+    product_size = None
 
-    # important clarification: the quantity serves as value for the item_id
-    if item_id in list(session_cart.keys()):
-        session_cart[item_id] += item_quantity
+    if 'product_size' in request.POST:
+        product_size = request.POST['product_size']
+        print(product_size)
+    print("no hay")
+
+    """
+    Assign to a var the session's dict (if it exists)
+    If the dict does not exist, then assign and EMPTY dict
+    """
+    cart_session = request.session.get('cart_session', {})
+
+    if product_size:
+        if item_id in list(cart_session.keys()):
+            if product_size in cart_session[item_id]['items_by_size'].keys():
+                cart_session[item_id]['items_by_size'][product_size] \
+                    += item_quantity
+            else:
+                cart_session[item_id]['items_by_size'][product_size] \
+                    = item_quantity
+        else:
+            cart_session[item_id] = \
+                {'items_by_size': {product_size: item_quantity}}
     else:
-        session_cart[item_id] = item_quantity
+        # important clarification: the quantity serves as value
+        # for the item_id key, BUT item_id is not literal, but
+        # passed in as a parameter into this view
+        if item_id in list(cart_session.keys()):
+            cart_session[item_id] += item_quantity
+        else:
+            cart_session[item_id] = item_quantity
 
     # save the new asssigned quantity value into the session's cart
-    request.session['session_cart'] = session_cart
-    
+    request.session['cart_session'] = cart_session
+    print(request.session['cart_session'])
+
     return redirect(redirect_url)

@@ -10,20 +10,32 @@ def cart_contents(request):
     cart_total = 0
     cart_product_count = 0
 
-    session_cart = request.session.get('session_cart', {})
+    cart_session = request.session.get('cart_session', {})
 
-    # item will be the key and quantity \
+    # item_id is the key and _item_quantity or Item_data \
     # is the value from the sesssion_cart dictionary
-    for item_id, item_quantity in session_cart.items():
-        cart_product = get_object_or_404(Product, pk=item_id)
-        cart_total += item_quantity * cart_product.price
-        cart_product_count += item_quantity
+    for item_id, item_data in cart_session.items():
+        if isinstance(item_data, int):
+            cart_product = get_object_or_404(Product, pk=item_id)
+            cart_total += item_data * cart_product.price
+            cart_product_count += item_data
 
-        cart_item_list.append({
-            'item_id': item_id,
-            'item_quantity': item_quantity,
-            'cart_product': cart_product,
-        })
+            cart_item_list.append({
+                'item_id': item_id,
+                'item_quantity': item_data,
+                'cart_product': cart_product,
+            })
+        else:
+            cart_product = get_object_or_404(Product, pk=item_id)
+            for product_size, item_quantity in item_data['items_by_size'].items():
+                cart_total += item_quantity * cart_product.price
+                cart_product_count += item_quantity
+                cart_item_list.append({
+                    'item_id': item_id,
+                    'item_quantity': item_data,
+                    'cart_product': cart_product,
+                    'product_size': product_size,
+                })
 
     delivery_cost = \
         cart_total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
