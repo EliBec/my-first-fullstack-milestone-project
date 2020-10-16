@@ -27,7 +27,8 @@ def cart_contents(request):
             })
         else:
             cart_product = get_object_or_404(Product, pk=item_id)
-            for product_size, item_quantity in item_data['items_by_size'].items():
+            for product_size, item_quantity in \
+                    item_data['items_by_size'].items():
                 cart_total += item_quantity * cart_product.price
                 cart_product_count += item_quantity
                 cart_item_list.append({

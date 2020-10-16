@@ -13,7 +13,8 @@ class Product(models.Model):
     long_desc = models.TextField()
     sku = models.CharField(max_length=254, null=False, blank=True)
     brand = models.CharField(max_length=50, null=False, blank=False)
-    price = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False)
+    price = models.DecimalField(max_digits=6, decimal_places=2,
+                                null=False, blank=False)
     has_sizes = models.BooleanField(default=True, null=False, blank=False)
     image_url = models.URLField(null=False, blank=True)
     image = models.ImageField(max_length=1024, null=False, blank=True)
@@ -32,8 +33,10 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-    name = models.CharField(max_length=50, null=True, blank=True)
-    friendly_name = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50,
+                            null=False, blank=True)
+    friendly_name = models.CharField(max_length=50,
+                                     null=False, blank=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -50,8 +53,10 @@ class Subcategory(models.Model):
 
     category = models.ForeignKey('Category', null=True,
                                  blank=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=40, null=True, blank=True)
-    friendly_name = models.CharField(max_length=40, null=True, blank=True)
+    name = models.CharField(max_length=40,
+                            null=False, blank=True)
+    friendly_name = models.CharField(max_length=40,
+                                     null=False, blank=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):
