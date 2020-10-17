@@ -34,9 +34,9 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     name = models.CharField(max_length=50,
-                            null=False, blank=True)
+                            null=True, blank=False)
     friendly_name = models.CharField(max_length=50,
-                                     null=False, blank=True)
+                                     null=True, blank=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -54,9 +54,9 @@ class Subcategory(models.Model):
     category = models.ForeignKey('Category', null=True,
                                  blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=40,
-                            null=False, blank=True)
+                            null=True, blank=False)
     friendly_name = models.CharField(max_length=40,
-                                     null=False, blank=True)
+                                     null=True, blank=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):

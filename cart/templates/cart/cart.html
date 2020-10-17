@@ -139,7 +139,7 @@
         var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('remove_')[1];
         var product_size = $(this).data('product_size');
-        var url = `cart/remove_item_from_cart/${itemId}/`;
+        var url = `/cart/remove_from_cart/${itemId}/`;
         console.log(url)
         var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': product_size};
 

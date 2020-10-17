@@ -124,9 +124,9 @@ def update_cart_qty(request, item_id):
     return redirect(reverse('display_cart'))
 
 
-def remove_item_from_cart(request, item_id):
+def remove_from_cart(request, item_id):
     # code to remove item in shopping cart
-
+    print('remove from cart')
     product = get_object_or_404(Product, pk=item_id)
     try:
         product_size = None
