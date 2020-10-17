@@ -75,7 +75,7 @@
                                     </div>
                                 </form> 
                                 <a class="update-link text-info" id="a-padding"><small>Update</small></a>
-                                <a class="remove-item text-danger" id="remove_{{ item.item_id }}" data-product-size="{{ item.product_size }}"><small>Remove</small></a>   
+                                <a class="remove-item text-danger" id="remove_{{ item.item_id }}" data-product_size="{{ item.product_size }}"><small>Remove</small></a>   
                             </td>
                             <td class="cart-col py-3">
                                 <p>{{ item.cart_product.price|item_subtotal:item.item_quantity }}</p>  
@@ -111,7 +111,7 @@
                 </div>
                 {% else %}
                 <p class="lead mb-5">Your cart is empty.</p>
-                <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                <a href="{% url 'products' %}" class="btn btn-border-style rounded-0">
                     <span class="icon">
                         <i class="fa fa-chevron-left"></i>
                     </span>
@@ -139,14 +139,14 @@
         var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('remove_')[1];
         var product_size = $(this).data('product_size');
-        var url = `/cart/remove_item_from_cart/${itemId}/`;
+        var url = `cart/remove_item_from_cart/${itemId}/`;
+        console.log(url)
         var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': product_size};
 
         $.post(url, data)
          .done(function() {
-             location.reload();
+            location.reload();
          });
     })
 </script>
-
 {% endblock %}

@@ -167,10 +167,31 @@
     border: .5px solid black;
 }
 
+/* Update and Remove links in the Shopping Cart webpage */
 .update-link, 
 .remove-item {
     cursor: pointer;
 }
+
+
+/* Container for Toast messages */
+.message-container {
+    position:fixed;
+    top: 85px; 
+    right: 15px;
+    z-index: 999999;
+}
+
+.custom-toast {
+    overflow:visible;
+}
+
+.cart-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 
 /**** product detail ******/
 
