@@ -1,0 +1,51 @@
+/*
+ * Code below taken from Stripe's documentation
+ * Ref. https://stripe.com/docs/stripe-js#elements
+ */
+
+ /* the class stripe-style-input that was added as an attribute to the widget in forms.py
+    is added here so that the style is consistent */
+.StripeElement, .stripe-style-input {
+  box-sizing: border-box;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 3px !important;
+  background-color: white;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus,
+.stripe-style-input:focus, 
+.stripe-style-input:active
+ {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.stripe-style-input::placeholder {
+    color: #aab7c4; /* #495057;  */
+}
+
+.form-group {
+    color: #000;
+    border: 0.5px #36250C  solid; /*black */
+    border-radius: 3px !important;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color:  rgb(202, 245, 199); /*#80bdff;*/
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem  #1A8849;  /*rgba(0,123,255,.25); */
+}

@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'home',
     'products',
     'cart',
-    'checkout'
+    'checkout',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'becks_outdoors.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -76,8 +79,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # process cases where no product image is available
+                'django.template.context_processors.media',
                 'cart.contexts.cart_contents'
             ],
+            #  to make django crispy-form template tags and fields
+            #  in ALL templates accross all the apps in the project
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]

@@ -97,7 +97,7 @@
                                     </span>
                                     <span class="text-uppercase">Keep Shopping</span>
                                 </a>
-                                <a href="" >    <!-- class="btn btn-black rounded-0 btn-lg" -->
+                                <a href="{% url 'checkout' %}">    <!-- class="btn btn-black rounded-0 btn-lg" -->
                                 <div class="btn std-button rounded-0 text-uppercase">
                                     <span class="text-uppercase">Secure Checkout</span>
                                     <span class="icon">
@@ -109,7 +109,7 @@
                         </tr>
                     </table>  
                 </div>
-                {% else %}
+            {% else %}
                 <p class="lead mb-5">Your cart is empty.</p>
                 <a href="{% url 'products' %}" class="btn btn-border-style rounded-0">
                     <span class="icon">
@@ -117,7 +117,7 @@
                     </span>
                     <span class="text-uppercase">Keep Shopping</span>
                 </a>
-                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
