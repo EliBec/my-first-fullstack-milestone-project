@@ -13,8 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
         'image',
     )
 
-    # sorting. must be a dupple. Add - \
-    # next to the field name for reverse sorting
+   
     ordering = ('sku',)
 
 
