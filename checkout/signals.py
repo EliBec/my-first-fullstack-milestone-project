@@ -6,7 +6,7 @@ from .models import OrderLineItem
 """
 post_save is django's model signal which triggers
 at the time of the "save" (updating  or creating a model)
-event and executes after the "save" event happens
+event and executes after the "save" event completes
 """
 
 
@@ -15,14 +15,12 @@ def update_on_save(sender, instance, created, **kwargs):
     """
     Update order total on lineitem update/create
     """
-    instance.order.update_total()
+    instance.order_id.update_total()
 
 
 """
-post_save is also a django's model signal which
-triggers at the time of the "delete"
-(deleting a model) event and executes
-after the "delete" event happens
+post_delete is also a signal which triggers during the "delete" event
+(deleting a model) and executes after the event completes
 """
 
 
@@ -31,5 +29,4 @@ def update_on_delete(sender, instance, **kwargs):
     """
     Update order total on lineitem delete
     """
- 
-    instance.order.update_total()
+    instance.order_id.update_total()

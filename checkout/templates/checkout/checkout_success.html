@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+
+{% block page_header %}
+<div class="container">
+	<div class="top-section"></div>
+</div>
+{% endblock %}
+
+{% block page_content %}
+<div class="overlap"></div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<hr>
+			<h2 class="logo-font mb-4">Checkout Confirmation</h2>
+			<hr>
+            <p class="text-black">Thank you for your purchase! Order information is listed below. A confirmation email will be sent to <strong>{{ order.customer_email }}</strong>.</p>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-12 col-lg-7">
+        </div>
+    </div>
+</div>
+{% endblock %}

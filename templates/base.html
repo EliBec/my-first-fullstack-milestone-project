@@ -173,7 +173,8 @@
     </header>
 
     <!-- message code taken from CI's project example and Bootstrap toasts -->   
-    <!-- "messages" comes from "messages" framework ('django.contrib.messages') included in INSTALLED_APPS -->
+    <!-- "messages" comes from "messages" framework 
+    ('django.contrib.messages') included in INSTALLED_APPS -->
     {% if messages %}
         <div class="message-container">
             {% for message in messages %}
@@ -199,7 +200,7 @@
     {% endblock %}
 
     {% block load_last_js %}   
-    <!-- Google Maps js -->
+    <!-- Google Maps js -->   
     <script type="text/javascript" src="{% static 'js/maps.js' %}"></script>
     <script
       async defer
@@ -209,6 +210,7 @@
     <script type="text/javascript">
         $('.toast').toast('show')
     </script>
+  
     {% endblock %}
 
     <footer class="container-fluid">
