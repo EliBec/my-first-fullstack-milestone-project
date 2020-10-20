@@ -52,14 +52,10 @@ class Order(models.Model):
         self.order_total = \
             self.lineitems.\
             aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
-
         self.delivery_cost = \
             self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
-
         self.grand_total = self.order_total + self.delivery_cost
-        
         self.save()
-       
 
     def save(self, *args, **kwargs):
         """

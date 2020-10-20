@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
-
 {% block page_header %}
 <div class="container">
 	<div class="top-section"></div>
@@ -18,14 +17,81 @@
 	<div class="row">
 		<div class="col">
 			<hr>
-			<h2 class="logo-font mb-4">Checkout Confirmation</h2>
+			<h2 class="logo-font mb-4">Order Confirmation</h2>
 			<hr>
             <p class="text-black">Thank you for your purchase! Order information is listed below. A confirmation email will be sent to <strong>{{ order.customer_email }}</strong>.</p>
 		</div>
 	</div>
     <div class="row">
-        <div class="col-12 col-lg-7">
+		<div class="col">
+            <p class="text-black">Order Number <strong>{{ order.order_number }}</strong>, placed on {{ order.created_date}}</p>
+		</div>
+	</div>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <h5>Shipping Address </h5>
+            <hr>
+            <p class="mb-0"><strong>{{ order.customer_fullname }}</strong></p>
+            <p class="mb-0">{{ order.street_address1 }}</p>
+            {% if order.street_address2 %}
+                <p class="mb-0">{{ order.street_address2 }}</p>
+            {% endif %}    
+            {% if order.county %}
+                <p class="mb-0">{{ order.county }} </p>
+            {% endif %}
+            <p class="mb-0">{{ order.town_or_city }}</p>
+            {% if order.postcode %}
+                <p class="mb-0">{{ order.postcode }}</p>
+            {% endif %}
+            <p class="mb-0">{{ order.country }}</p>
+            <p class="mb-0">{{ order.customer_email}}</p>
+            <p class="mb-0">{{ order.customer_phone }}</p>
+        </div>
+        <div class="col-6">
+            <h5>Order total </h5>
+            <hr>
+            <p class="mb-0"><strong>Subtotal:</strong> ${{ order.order_total }}</p>
+            <p class="mb-0"><strong>Shipping:</strong> ${{ order.delivery_cost }}</p>
+            <p class="mb-0"><strong>Total:</strong>  ${{ order.grand_total }}</p>
         </div>
     </div>
-</div>
+    <hr>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive rounded">
+                <h5> Order Summary</h5>
+                <hr>
+                <table style="width:100%">
+                    <tr>
+                        <th class="cart-col">Product</th>
+                        <th class="cart-col text-center">Price</th>
+                        <th class="cart-col text-center">Quantity</th>
+                    </tr>
+                    {% for item in order.lineitems.all %}
+                    <tr>
+                        <td class="cart-col py-3" style="width:25%">
+                            <p class="my-0">{{ item.product.name }}</p>
+                            <p class="my-2">sku: {{ item.product.sku }}</p>
+                            <p class="my-2"><strong>Size: </strong>
+                                {% if item.product.has_sizes %}
+                                    {{ item.product_size|upper }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </p>
+                        </td>
+                        <td class="cart-col py-3">
+                            <p class="my-0 text-center">{{ item.product.price }}</p>
+                        </td>
+                        <td class="cart-col py-3 links-align">
+                            <p class="my-0 text-center">{{ item.quantity }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>       
 {% endblock %}
