@@ -1,11 +1,12 @@
 from django.http import HttpResponse
 
-class StripeWH_Handler(self,request):
-    
+
+class StripeWH_Handler:
+
     def __init__(self, request):
         self.request = request
 
-    def __handle_event(slef, event):
+    def __handle_event(self, event):
 
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
