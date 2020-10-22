@@ -172,10 +172,11 @@
 {% block load_last_js %}
 {{ block.super }}
 
-{{ stripe_public_key|json_script:"id_stripe_public_key" }}
-{{ client_secret|json_script:"id_client_secret" }}
 <!-- below we use the json_script template tags.
     More info in this doc:
      https://www.djangotemplatetagsandfilters.com/filters/json_script/-->
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ client_secret|json_script:"id_client_secret" }}
+
 <script src= "{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %} 

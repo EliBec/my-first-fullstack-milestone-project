@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse,\
+     get_object_or_404,  HttpResponse
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 
@@ -9,8 +11,27 @@ from products.models import Product
 #  import the cart_contents view
 from cart.contexts import cart_contents
 
-
 import stripe
+import json
+
+
+@require_POST
+# add to the Stripe's payment intent the bag, save info and user info data
+def cache_checkout_data(request):
+    try:
+        payment_intent_id = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(payment_intent_id, metadata={
+            'cart_session':
+                json.dumps(request.session.get('cart_session', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 # Create your views here.
@@ -40,6 +61,11 @@ def checkout(request):
 
         #  and confirm validity
         if order_form.is_valid():
+            order = order_form.save(commit=False)
+            payment_int_id = \
+                request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = payment_int_id
+            order.original_cart = json.dumps(cart_session)
             # remember: upon saving the order_form,
             # the model method _generate_order_number executes
             order = order_form.save()
