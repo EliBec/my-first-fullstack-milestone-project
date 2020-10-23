@@ -7,18 +7,20 @@ from django.conf import settings
 from django_countries.fields import CountryField
 
 from products.models import Product
+from profiles.models import UserProfile
 
 
 # Create your models here.
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
+    user_profile = models.ForeignKey(UserProfile, null=True, blank=True, on_delete=models.SET_NULL, related_name='orders')
     created_date = models.DateTimeField(auto_now_add=True)
     customer_fullname = \
         models.CharField(max_length=50, null=False, blank=False)
     customer_phone =  \
         models.CharField(max_length=20, null=False, blank=False)
     customer_email =  \
-        models.EmailField(max_length=254, null=False, blank=False, unique=True)
+        models.EmailField(max_length=254, null=False, blank=False)
     postcode = models.CharField(max_length=20, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
