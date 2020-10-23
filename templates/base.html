@@ -60,11 +60,16 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                                <a href="#" class="dropdown-item">Manage Products</a>
-                                <a href="#" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Logout</a>
-                                <a href="#" class="dropdown-item">Register</a>
-                                <a href="#" class="dropdown-item">Login</a>
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                    <a href="#" class="dropdown-item">Manage Products</a>
+                                {% endif %}   
+                                <a href="{% url 'profiles' %}" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                            {% else %}
+                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                            {% endif %}  
                         </div>
                         <a class="nav-link nav-link-icon" href="#" title="Shopping cart" aria-label="View shopping cart">
                             <div>
@@ -125,7 +130,6 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     <input class="form-control mr-sm-2" type="search" name = "srch_qry" placeholder="Search" aria-label="Search"> 
                 </form>
-
             </div>
             <div id="navbar-icons-desktop" class="d-none d-lg-inline-block cart-section">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
@@ -139,18 +143,13 @@
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                     {% if request.user.is_superuser %}
-                            
                                         <a href="#" class="dropdown-item">Manage Products</a>
-                                     {% endif %}
-                                    
-                                <a href="#" class="dropdown-item">My Profile</a>
-                                <!--<a href="{# url 'user_profile' #}" class="dropdown-item">My Profile</a> -->
-                                <a href="#" class="dropdown-item">Logout</a>
-                                <!-- <a href="{# url 'account_logout' #}" class="dropdown-item">Logout</a> -->
+                                    {% endif %}   
+                                <a href="{% url 'profiles' %}" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
-                                <a href="#" class="dropdown-item">Register</a>
-                                <!-- <a href="{# url 'account_signup' #}" class="dropdown-item">Register</a> -->
-                                <a href="#" class="dropdown-item">Login</a>
+                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                             {% endif %}  
                         </div>
                     </li>

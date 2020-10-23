@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load cart_custom_functions %}
 
 {% block custom_css %}
 <link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
@@ -22,6 +21,8 @@
 			<h2 class="logo-font mb-4">User Profile</h2>
 			<hr>
 		</div>
-	</div>
+	</div> 
 </div>
+ {{ user_profile }}
+ 
 {% endblock %}
