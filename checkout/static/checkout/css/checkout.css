@@ -68,3 +68,14 @@
     margin: 0;
     height: 100%;
 }
+
+/* Code copied from CI's course Boutique Ado project */
+select, 
+select option{
+    color: #000000;
+}
+
+select:invalid,
+select option[value=""]{
+    color: #aab7c4 !important;
+}
