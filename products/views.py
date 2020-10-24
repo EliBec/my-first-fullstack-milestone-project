@@ -151,11 +151,11 @@ def add_product(request):
         #  on the request date from POST
         product_form_data = ProductProfileForm(request.POST, request.FILES)
         if product_form_data.is_valid():
-            product_form_data.save()
+            product = product_form_data.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('add_product'))
+            return redirect(reverse('display_product_detail',
+                            args=[product.id]))
         else:
-
             messages.error(request,
                            'Failed to add product.'
                            'Please ensure the form is valid.')
@@ -181,10 +181,11 @@ def edit_product(request, product_id):
         if product_form_data.is_valid():
             product_form_data.save()
             messages.success(request, 'Product updated successfully')
-            return redirect(reverse('display_product_detail', args=[product.id]))
+            return redirect(reverse('display_product_detail',
+                            args=[product.id]))
         else:
             messages.error(request,
-                             'Update failed. Pleae ensure the form is valid.')
+                           'Update failed. Pleae ensure the form is valid.')
     else:
         # instantiate the product form based on product for display
         product_form_data = ProductProfileForm(instance=product)
@@ -197,3 +198,17 @@ def edit_product(request, product_id):
     }
 
     return render(request, template, context)
+
+
+def delete_product(request, product_id):
+    """ Delete a product in the store
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+    """
+
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    messages.success(request, 'Product deleted!')
+    return redirect(reverse('products'))
+

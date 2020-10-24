@@ -68,6 +68,14 @@
                                     </div>
                                 </div>
                             </div>
+                            {% if request.user.is_superuser %}
+                                <p>
+                                    <small>
+                                        <a style="color:darkgreen;" href="{% url 'edit_product' product.id %}">Edit product</a> |
+                                        <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                                    </small> 
+                                </p>     
+                            {% endif %}
                             <!-- section for pick up at the store or delivery 
                             <div class="text-left p-1">
                                 <div class="radio"> 

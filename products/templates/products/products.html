@@ -11,16 +11,13 @@
 {% block page_content %}
 <div class="overlap"></div>
 <div class="container">
-
     {% if search_method == "menusearch" %}
-
         <div class="row">
             <div class="col-12 mb-4 ">
                 <h4>All Products</h4>
             </div>
         </div>
-
-    <!-- move this to an include -->
+    <!-- move this to an include? -->
     {% elif search_method == "searchform" %}
         <div class="row">
             <div class="col-12 mb-4">
@@ -30,38 +27,32 @@
                 {% endif %}
             </div>
         </div>
-    {% endif %}    
-
-       
+    {% endif %}       
     <div class="divider-x mb-5"></div> 
 
     <!-- sort/filter drow-down -->
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-                <p>
-                    <label> Sort by: </label>
-                    <select id = "sort-option">
-                        <option value="reset">Sort by...</option>
-                        <option value = "price_asc"><a href="{% url 'products' %}?sort=price&direction=asc">Price Low to High</a></option> 
-                        <option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
-                        <option value = "brand_asc"><a href="{% url 'products' %}?sort=brand&direction=asc">Brand A to Z</a></option>  
-                        <option value = "brand_desc"><a href="{% url 'products' %}?sort=brand&direction=desc">Brand Z to A</a></option>  
-                        <option value = "category_asc"><a href="{% url 'products' %}?sort=category&direction=asc">Category A to Z</a></option>  
-                        <option value = "category_desc"><a href="{% url 'products' %}?sort=category&direction=desc">Category Z to A</a></option> 
-                    </select> 
-                </p>
-        </div>
-    </div>        
-
+		<div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+			<p>
+				<label> Sort by: </label>
+				<select id = "sort-option">
+					<option value="reset">Sort by...</option>
+					<option value = "price_asc"><a href="{% url 'products' %}?sort=price&direction=asc">Price Low to High</a></option> 
+					<option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
+					<option value = "brand_asc"><a href="{% url 'products' %}?sort=brand&direction=asc">Brand A to Z</a></option>  
+					<option value = "brand_desc"><a href="{% url 'products' %}?sort=brand&direction=desc">Brand Z to A</a></option>  
+					<option value = "category_asc"><a href="{% url 'products' %}?sort=category&direction=asc">Category A to Z</a></option>  
+					<option value = "category_desc"><a href="{% url 'products' %}?sort=category&direction=desc">Category Z to A</a></option> 
+				</select>
+			</p>
+		</div>
+    </div>
     <!-- products display section-->
     {% include 'includes/productlist_display.html' %}
-
 </div> 
-
-    {% include 'includes/backtotop.html' %}
+{% include 'includes/backtotop.html' %}
 
 {% endblock %}
-
 
 {% block load_last_js %}   
 {{ block.super }}
