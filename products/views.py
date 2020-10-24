@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from .models import Product, Category, Subcategory
@@ -145,7 +146,14 @@ def sorting_by(sortkey, direction, products):
     return products_sorted
 
 
+@login_required
 def add_product(request):
+
+    # make sure only super users can add products
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners are allowed to perform this task.')
+        return redirect(reverse('home'))
+
     if request.method == "POST":
         #  instance of the ProductProfileForm based
         #  on the request date from POST
@@ -171,7 +179,15 @@ def add_product(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_product(request, product_id):
+
+    # make sure only super users can edit products
+    if not request.user.is_superuser:
+        messages.error(request,
+                       'Sorry, only store owners are'
+                       'allowed to perform this task.')
+        return redirect(reverse('home'))
 
     product = get_object_or_404(Product, pk=product_id)
 
@@ -200,12 +216,15 @@ def edit_product(request, product_id):
     return render(request, template, context)
 
 
+@login_required
 def delete_product(request, product_id):
-    """ Delete a product in the store
+
+    #  make sure only super users can delete products
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request,
+                       'Sorry, only store owners are'
+                       'allowed to perform this task.')
         return redirect(reverse('home'))
-    """
 
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
