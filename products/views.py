@@ -142,8 +142,21 @@ def sorting_by(sortkey, direction, products):
 
 
 def add_product(request):
+    if request.method == "POST":
+        #  instance of the ProductProfileForm based
+        #  on the request date from POST
+        product_form_data = ProductProfileForm(request.POST, request.FILES)
+        if product_form_data.is_valid():
+            product_form_data.save()
+            messages.success(request, 'Successfully added product!')
+            return redirect(reverse('add_product'))
+        else:
 
-    product_form_data = ProductProfileForm()
+            messages.error(request,
+                           'Failed to add product.'
+                           'Please ensure the form is valid.')
+    else:
+        product_form_data = ProductProfileForm()
 
     context = {
         'product_form_data': product_form_data,
@@ -152,4 +165,5 @@ def add_product(request):
     template = 'products/addproduct.html'
 
     return render(request, template, context)
+
 
