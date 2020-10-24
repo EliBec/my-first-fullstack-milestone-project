@@ -8,7 +8,7 @@ class ProductProfileForm(forms.ModelForm):
         # only include the fields that are editable by user
         fields = ('category', 'subcategory', 'name',
                   'short_desc', 'long_desc', 'sku', 'brand',
-                  'price', 'has_sizes', 'imge_url', 'image', 'style')
+                  'price', 'has_sizes', 'image_url', 'image', 'style')
 
     # image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
 
@@ -17,9 +17,10 @@ class ProductProfileForm(forms.ModelForm):
         categories = Category.objects.all()
         friendly_names_cat = \
             [(c.id, c.get_friendly_name()) for c in categories]
+
         subcategories = Subcategory.objects.all()
         friendly_names_subcat = \
-            [(subc.id, subc.get_friendly_name()) for subc in subcategories]
+            [(subc.id, subc.get_friendly_name_sub()) for subc in subcategories]
 
         self.fields['category'].choices = \
             friendly_names_cat

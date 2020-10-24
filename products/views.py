@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from .models import Product, Category, Subcategory
+from .forms import ProductProfileForm
 
 
 # Create your views here.
@@ -54,7 +55,7 @@ def display_all_products(request):
 
 def products_by_category(request, category_name):
 
-    products= None
+    products = None
     subcategory = None
     category = None
     direction = None
@@ -138,3 +139,17 @@ def sorting_by(sortkey, direction, products):
     products_sorted = products.order_by(sortkey)
 
     return products_sorted
+
+
+def add_product(request):
+
+    product_form_data = ProductProfileForm()
+
+    context = {
+        'product_form_data': product_form_data,
+    }
+
+    template = 'products/addproduct.html'
+
+    return render(request, template, context)
+
