@@ -23,8 +23,12 @@ def display_all_products(request):
         # call sorting logic function if we get 'sort' as parameter
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
+        else:
+            sortkey = 'price'
         if 'direction' in request.GET:
             direction = request.GET['direction']
+        else:
+            direction = 'asc'
 
         products = sorting_by(sortkey, direction, products)
 
@@ -167,3 +171,29 @@ def add_product(request):
     return render(request, template, context)
 
 
+def edit_product(request, product_id):
+
+    product = get_object_or_404(Product, pk=product_id)
+
+    if request.method == 'POST':
+        product_form_data = ProductProfileForm(request.POST,
+                                               request.FILES, instance=product)
+        if product_form_data.is_valid():
+            product_form_data.save()
+            messages.success(request, 'Product updated successfully')
+            return redirect(reverse('display_product_detail', args=[product.id]))
+        else:
+            messages.error(request,
+                             'Update failed. Pleae ensure the form is valid.')
+    else:
+        # instantiate the product form based on product for display
+        product_form_data = ProductProfileForm(instance=product)
+
+    template = 'products/editproduct.html'
+
+    context = {
+        'product_form_data': product_form_data,
+        'product': product,
+    }
+
+    return render(request, template, context)
