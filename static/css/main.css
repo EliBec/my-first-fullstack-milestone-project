@@ -195,6 +195,45 @@
     overflow-y: auto;
 }
 
+.fa-check {
+    color: #388e3c;
+    padding-right:5px;
+}
+
+.fa-times {
+    color: darkred;
+    padding-right:5px;
+}
+
+.fa-info {
+    color: blue;
+    padding-right:5px;
+}
+
+.fa-exclamation {
+    color: darkorange;
+    padding-right:5px;
+}
+
+.bg-success, .bg-warning, .bg-danger, .bg-info {
+    background-color: white !important;
+}
+
+.bg-success {
+    border-bottom: 1px solid #388e3c;
+}
+.bg-warning {
+    border-bottom: 1px solid darkorange;;
+}
+.bg-danger {
+    border-bottom: 1px solid darkred;
+}
+.bg-info {
+    border-bottom: 1px solid blue;
+}
+
+
+
 
 /**** product detail ******/
 

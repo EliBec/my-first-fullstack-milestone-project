@@ -20,10 +20,17 @@
     color: #aab7c4;
 }
 
+
 .form-control:focus {
     color: #495057;
     background-color: #fff;
     border-color:  rgb(202, 245, 199); /*#80bdff;*/
     outline: 0;
     box-shadow: 0 0 0 0.1rem  #1A8849;  /*rgba(0,123,255,.25); */
+}
+
+.form-group {
+    color: #000;
+    border: 0.5px #36250C solid; /*black */
+    border-radius: 3px !important;
 }
