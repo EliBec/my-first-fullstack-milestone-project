@@ -1,5 +1,6 @@
 from django import forms
 from .models import Product, Category, Subcategory
+from .widgets import CustomClearableFileInput
 
 
 class ProductProfileForm(forms.ModelForm):
@@ -10,7 +11,8 @@ class ProductProfileForm(forms.ModelForm):
                   'short_desc', 'long_desc', 'sku', 'brand',
                   'price', 'has_sizes', 'image_url', 'image', 'style')
 
-    # image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
+    image = forms.ImageField(label='Image',
+                             required=False, widget=CustomClearableFileInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
