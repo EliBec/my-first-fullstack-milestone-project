@@ -9,8 +9,8 @@
 
 
 {% block page_content %}
-<div class="overlap"></div>
-<div class="container">
+<div class="overlap" id="overlap-section"></div>
+<div class="container" id="container-section">
 
     <!-- breadcrumb -->
     {% if search_method == "breadcrumb" %}
@@ -27,27 +27,29 @@
                             {% endfor %}
                             {% for subcat in subcategory %}
                                  <li class="breadcrumb-item" aria-current="page">{{ subcat.friendly_name|title }}</li>
+                                 <h2 class="page-heading">{{ subcat.friendly_name|title }}</h2>
                             {% endfor%}
                         {% elif category and not subcategory %}
                             {% for cat in category %}
                                 <li class="breadcrumb-item" aria-current="page">{{ cat.friendly_name|title }}</li>
+                                <h2 class="page-heading"> {{ cat.friendly_name|title }} </h2>
                             {% endfor%}
                         {% endif %}    
                     </ol>
                 </nav>
             </div>
         </div>
-    {% endif %}       
+    {% endif %} 
 
-    <!-- page subtitle -->     
-    <div class="divider-x mb-5"></div> 
+    <!-- page subtitle --> 
+    <div class="divider-x mb-5"></div>   
 
     <!-- sort/filter drow-down -->
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
                 <p>
-                    <label> Sort by: </label>
-                    <select id = "sort-option">
+                    <label><strong> Sort by: </strong></label>
+                    <select class="sorting-box" id="sort-option">
                         <option value="reset">Sort by...</option>
                         <option value = "price_asc"><a href="{% url 'products' %}?sort=price&direction=asc">Price Low to High</a></option> 
                         <option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
@@ -65,9 +67,9 @@
     <!-- products display section-->
     {% include 'includes/productlist_display.html' %}
 
-</div> 
-
     {% include 'includes/backtotop.html' %}
+
+</div> 
 
 {% endblock %}
 
@@ -118,6 +120,17 @@
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
+
+    /* for devices other than cellphones, set the footer to tbe bottom when there is no content on the page */
+    var wWrapper = document.getElementById('overlap-section').scrollWidth;
+    var hContainer = document.getElementById('container-section').scrollHeight;
+    console.log(wWrapper);
+    console.log(hContainer);
+
+    if (wWrapper >= 450 && wWrapper <= 1024  && hContainer >= 129)  {
+        document.getElementById("footer-section").setAttribute("style","position:absolute; bottom:0;");
+    }
+ 
 </script>
 
 

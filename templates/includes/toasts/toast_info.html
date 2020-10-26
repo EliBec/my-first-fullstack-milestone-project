@@ -1,5 +1,5 @@
 <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-    <div class="toast custom-toast" style="position: absolute; top: 0; right: 0;" data-autohide="false">
+    <div class="toast custom-toast" data-autohide="false">
         <div class="toast-header custom-header bg-info">
             <span>
                 <icon class="fa fa-info"></icon>
@@ -9,8 +9,13 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="toast-body">
-        {{ message }}
+        <div class="toast-body bg-white">
+            <div class="row">
+                <div class="col">
+                    {{ message }}
+                    <hr class="mt-1 mb-3">
+                </div>
+            </div>
         </div>
     </div>
 </div>

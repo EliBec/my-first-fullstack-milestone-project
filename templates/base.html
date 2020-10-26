@@ -39,12 +39,11 @@
     {% endblock %}
 
     <title>Beck's Outdoors{% block title_extension %}{% endblock %}</title>
-
   </head>
 
   <body>
-    <header class="fixed-top">
-    <div style = "background-color: green;">
+    <header class="fixed-top">  
+    <div style = "background-color: green;"> 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand logo-section" href="{% url 'home' %}">LOGO</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,31 +51,52 @@
             </button>
             <div id="navbar-icons-mobile" class="d-lg-none cart-section">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+                    
+            <li class="list-inline-item mx-0">
+                <a class="text-black nav-link d-block d-lg-none" href="#" id="mobile-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="text-center">
+                        <i class="fa fa-search" style="font-size:24px; color:white;"></i>
+                    </div>
+                </a>
+                <div class="dropdown-menu w-100 p-3 my-0" aria-labelledby="mobile-search">
+                    <form class="form" method="GET" action="{% url 'products' %}">
+                        <div class="input-group w-100">
+                            <input class="form-control search-bar-mobile" type="text" name = "srch_qry"  placeholder="Search our site">
+                            <div class="input-group-append">
+                                <button class="form-control form-control btn btn-black" type="submit">
+                                    <span class="icon">
+                                        <i class="fa fa-search" style="color:green;"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li>
+                    <li>
+                        <a class="nav-link nav-link-icon" href="#" title="Shopping cart" aria-label="View shopping cart">
+                            <i class="fa fa-shopping-cart" style="font-size:24px;color:white"></i>
+                        </a>
+                    </li>
                     <li class="list-inline-item dropdown">
                         <a class="text-black nav-link" href="#" id="user-options-mob" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fa fa-user" style="font-size:24px;color:white"></i></div>
-                                <!-- <p class="my-0">My Account</p>  -->
                             </div>
                         </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                        <div class="dropdown-menu border-0 drop-left" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
                                     <a href="{% url 'add_product' %}" class="dropdown-item">Manage Products</a>
                                 {% endif %}   
-                                <a href="{% url 'profiles' %}" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'profiles' %}" class="dropdown-item">My Profiles</a>
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
                                 <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
                                 <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                             {% endif %}  
                         </div>
-                        <a class="nav-link nav-link-icon" href="#" title="Shopping cart" aria-label="View shopping cart">
-                            <div>
-                                <i class="fa fa-shopping-cart" style="font-size:24px;color:white"></i>
-                            </div>
-                        </a>
-                    </li>
+                    </li> 
                 </ul>
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -86,11 +106,9 @@
                         </a>
                         <div class="dropdown-menu drop-pad" aria-labelledby="navbarDropdown">  
                             <ul class="shop-menu">
-                           
                                 <li><a href="{% url 'products_by_category' 'bike' %}">Bikes</a></li>
                                 <div class="dropdown-divider w-25"></div>
                                     <ul class="shop-menu">
-            
                                         <li><a href="{% url 'products_by_subcategory' 'road' %}">Road</a></li>
                                         <li><a href="{% url 'products_by_subcategory' 'mountain' %}">Mountain</a></li>
                                         <li><a href="{% url 'products_by_subcategory' 'fitness' %}">Fitness</a></li>
@@ -125,53 +143,51 @@
                         <a class="nav-link" href="#">About us</a>
                     </li>
                 </ul>
-
-                <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'products' %}">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    <input class="form-control mr-sm-2" type="search" name = "srch_qry" placeholder="Search" aria-label="Search"> 
-                </form>
             </div>
-            <div id="navbar-icons-desktop" class="d-none d-lg-inline-block cart-section">
-                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+            <div id="navbar-icons-desktop" class="d-none d-lg-inline-block">      
+                 <form class="form-inline my-2 my-lg-0 search-bar" method="GET" action="{% url 'products' %}">
+                   <div class="input-group">
+                     <input class="form-control mr-sm-2" type="search" name = "srch_qry" placeholder="Search" aria-label="Search"> 
+                        <button  id="search-button"  type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>    
+                </form>
+
+                <ul class="list-inline list-unstyled text-center text-lg-right my-0 list-left">
+                    <li>
+                        <a class="nav-link nav-link-icon" href="{% url 'display_cart' %}" title="Shopping cart" aria-label="View shopping cart">
+                        <i class="fa fa-shopping-cart" style="font-size:24px;color:white"></i>
+                            {% if cart_product_count > 0 %}
+                                {{ cart_product_count }}
+                            {% endif %}
+                        </a>
+                    </li>
                     <li class="list-inline-item dropdown">
                         <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fa fa-user" style="font-size:24px;color:white"></i></div>
-                                <!-- <p class="my-0">My Account</p>  -->
                             </div>
                         </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                        <div class="dropdown-menu border-0 drop-left" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                     {% if request.user.is_superuser %}
                                         <a href="{% url 'add_product' %}" class="dropdown-item">Manage Products</a>
                                     {% endif %}   
-                                <a href="{% url 'profiles' %}" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'profiles' %}" class="dropdown-item">My Profiless</a>
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
-                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                <a href="{% url 'account_signup' %}" class="dropdown-item">Registers</a>
                                 <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                             {% endif %}  
                         </div>
-                    </li>
-                    <li>
-                        <a class="nav-link nav-link-icon" href="{% url 'display_cart' %}" title="Shopping cart" aria-label="View shopping cart">
-                            <div>
-                                <i class="fa fa-shopping-cart" style="font-size:24px;color:white"></i>
-                                <p class="my-0">
-                                    {% if cart_product_count > 0 %}
-                                        {{ cart_product_count }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </a>
-                    </li>
+                    </li> 
                 </ul>
             </div>
         </nav> 
     </div>
     </header>
 
-    <!-- message code taken from CI's project example and Bootstrap toasts -->   
     <!-- "messages" comes from "messages" framework 
     ('django.contrib.messages') included in INSTALLED_APPS -->
     {% if messages %}
@@ -198,6 +214,43 @@
     {% block page_content %}
     {% endblock %}
 
+    <footer id="footer-section">
+        <div class="container-fluid"> 
+            <div id="footer-details" class="row">
+                <div class="col-sm-4">
+                    <div class="footer-title">Share the adventure</div>
+                    <div id="social-media">
+                        <a href="#" target="_blank">
+                            <i class="fa fa-facebook-f" style="font-size:24px;color:white"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fa fa-twitter-square" style="font-size:24px;color:white"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fa fa-instagram" style="font-size:24px;color:white"></i>
+                        </a>
+                    </div>   
+                </div>
+                <div class="col-sm-4">
+                    <div class="footer-title">Location</div>
+                    <div id="location-info">
+                        <p>
+                            133 James Avenue
+                            <br>
+                            Surf City, NC 28445
+                            <br>
+                            (910) 790-0584
+                        </p>
+                    </div>    
+                </div>
+                <div class="col-sm-4" id="googlemap"></div>
+                <div class="copyright-statement col-sm-12">
+                    &copy; 2020 by Eliana Beckinsale. All rights reserved.
+                </div>
+            </div>
+        </div> 
+    </footer>
+
     {% block load_last_js %}   
     <!-- Google Maps js -->   
     <script type="text/javascript" src="{% static 'js/maps.js' %}"></script>
@@ -205,46 +258,12 @@
       async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7EoavIBMoZDMzMU_Ii75GVAwbjnWDcyg&callback=initMap">
     </script>
+
     <!-- Initialize Bootstrapt's Toastw/ 'show' option -->
     <script type="text/javascript">
         $('.toast').toast('show')
     </script>
-  
-    {% endblock %}
 
-    <footer class="container-fluid">
-        <div id="footer-details" class="row">
-            <div class="col-sm-4">
-                <div class="footer-title">Share the adventure</div>
-                <div id="social-media">
-                    <a href="#" target="_blank">
-                        <i class="fa fa-facebook-f" style="font-size:24px;color:white"></i>
-                    </a>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-twitter-square" style="font-size:24px;color:white"></i>
-                    </a>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-instagram" style="font-size:24px;color:white"></i>
-                    </a>
-                </div>   
-            </div>
-            <div class="col-sm-4">
-                <div class="footer-title">Location</div>
-                <div id="location-info">
-                    <p>
-                        133 James Avenue
-                        <br>
-                        Surf City, NC 28445
-                        <br>
-                        (910) 790-0584
-                    </p>
-                </div>    
-            </div>
-            <div class="col-sm-4" id="googlemap"></div>
-            <div class="copyright-statement col-sm-12">
-                &copy; 2020 by Eliana Beckinsale. All rights reserved.
-            </div>
-        </div>
-    </footer>
+    {% endblock %}
     </body>
 </html>

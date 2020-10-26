@@ -9,54 +9,63 @@
 
 
 {% block page_content %}
-<div class="overlap"></div>
-<div class="container">
+<div class="overlap" id="overlap-section"></div>
+<div class="container" id="container-section" >
+
     {% if search_method == "menusearch" %}
         <div class="row">
-            <div class="col-12 mb-4 ">
-                <h4>All Products</h4>
+            <div class="col-12 mt-4 ">
+                <h2>All Products</h2>
             </div>
         </div>
-    <!-- move this to an include? -->
+
     {% elif search_method == "searchform" %}
         <div class="row">
-            <div class="col-12 mb-4">
+            <div class="col-12 mt-4">
                 {% if search_term %}
                     <h5>Your Search:   <small> "{{ search_term }}"</small></h5>
                         <p> Number of results: {{ products|length }}</p>
                 {% endif %}
             </div>
         </div>
-    {% endif %}       
-    <div class="divider-x mb-5"></div> 
+    {% endif %}    
+    <hr>
 
-    <!-- sort/filter drow-down -->
-    <div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-			<p>
-				<label> Sort by: </label>
-				<select id = "sort-option">
-					<option value="reset">Sort by...</option>
-					<option value = "price_asc"><a href="{% url 'products' %}?sort=price&direction=asc">Price Low to High</a></option> 
-					<option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
-					<option value = "brand_asc"><a href="{% url 'products' %}?sort=brand&direction=asc">Brand A to Z</a></option>  
-					<option value = "brand_desc"><a href="{% url 'products' %}?sort=brand&direction=desc">Brand Z to A</a></option>  
-					<option value = "category_asc"><a href="{% url 'products' %}?sort=category&direction=asc">Category A to Z</a></option>  
-					<option value = "category_desc"><a href="{% url 'products' %}?sort=category&direction=desc">Category Z to A</a></option> 
-				</select>
-			</p>
-		</div>
-    </div>
-    <!-- products display section-->
-    {% include 'includes/productlist_display.html' %}
-</div> 
-{% include 'includes/backtotop.html' %}
+    {% if products|length > 0 %}
+        <!-- sort/filter drow-down -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+                <p>
+                    <label class="pr-2"><strong> Sort by: </strong></label>
+                    <select class="sorting-box" id="sort-option">
+                        <option value="reset">Sort by...</option>
+                        <option value = "price_asc"><a href="{% url 'products' %}?sort=price&direction=asc">Price Low to High</a></option> 
+                        <option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
+                        <option value = "brand_asc"><a href="{% url 'products' %}?sort=brand&direction=asc">Brand A to Z</a></option>  
+                        <option value = "brand_desc"><a href="{% url 'products' %}?sort=brand&direction=desc">Brand Z to A</a></option>  
+                        <option value = "category_asc"><a href="{% url 'products' %}?sort=category&direction=asc">Category A to Z</a></option>  
+                        <option value = "category_desc"><a href="{% url 'products' %}?sort=category&direction=desc">Category Z to A</a></option> 
+                    </select>
+                </p>
+            </div>
+        </div>
 
+        <!-- products display section-->
+        {% include 'includes/productlist_display.html' %}
+
+        <!-- back to top button -->
+        {% include 'includes/backtotop.html' %}
+
+    {% else %}  
+        <div id="bottom-section-dyn"></div>  
+    {% endif %}
+
+</div>
 {% endblock %}
+
 
 {% block load_last_js %}   
 {{ block.super }}
-
 <script type="text/javascript">
         $('#sort-option').change(function() {
             var selector = $(this);
@@ -81,25 +90,41 @@
 </script>
 <script type="text/javascript">
 
-    toTopButton = document.getElementById("return-to-top-btn");
+   /* if(document.body.contains(document.getElementById("return-to-top-btn"))){ */
 
-    window.onscroll = function() {scrollFunction()};
+        toTopButton = document.getElementById("return-to-top-btn");
 
-    // Show the button after scrolling 20px down the screen.
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            toTopButton.classList.add("setBackTop");
-        } 
-        else {
-            toTopButton.classList.add("setHiddenTop");
-            toTopButton.classList.remove("setBackTop");
+        window.onscroll = function() {scrollFunction()};
+
+        // Show the button after scrolling 20px down the screen.
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                toTopButton.classList.add("setBackTop");
+            } 
+            else {
+                toTopButton.classList.add("setHiddenTop");
+                toTopButton.classList.remove("setBackTop");
+            }
         }
-    }
 
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+  /*  } */
+
+   /* for devices other than cellphones, set the footer to tbe bottom when there is no content on the page */
+        var wWrapper = document.getElementById('overlap-section').scrollWidth;
+        var hContainer = document.getElementById('container-section').scrollHeight;
+        console.log(wWrapper);
+        console.log(hContainer);
+
+        if (wWrapper > 375  && hContainer >= 129 && hContainer <= 300) {
+            document.getElementById("footer-section").setAttribute("style","position:absolute; bottom:0;");
+        }
+   
+
 </script>
 
 {% endblock %}

@@ -151,7 +151,9 @@ def add_product(request):
 
     # make sure only super users can add products
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners are allowed to perform this task.')
+        messages.error(request,
+                       'Sorry, only store owners are allowed'
+                       'to perform this task.')
         return redirect(reverse('home'))
 
     if request.method == "POST":
