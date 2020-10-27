@@ -70,7 +70,7 @@
                                         </div>
                                         <!--<p class="my-0">{{ item.item_quantity }}</p> -->
                                         {% if item.product.has_sizes %}
-                                            <input type="hidden" name="product_size" value="{{ item.cart_product.price }}">
+                                            <input type="hidden" name="product_size" value="{{ item.cart_product.product_size }}">
                                         {% endif %}
                                     </div>
                                 </form> 
@@ -78,6 +78,7 @@
                                 <a class="remove-item text-danger" id="remove_{{ item.item_id }}" data-product_size="{{ item.product_size }}"><small>Remove</small></a>   
                             </td>
                             <td class="cart-col py-3">
+                                <!-- item_subtotal is the custom filter previously created in cart_customer_funtions.py -->
                                 <p>{{ item.cart_product.price|item_subtotal:item.item_quantity }}</p>  
                             </td>
                         </tr>
@@ -98,12 +99,12 @@
                                     <span class="text-uppercase">Keep Shopping</span>
                                 </a>
                                 <a href="{% url 'checkout' %}">    <!-- class="btn btn-black rounded-0 btn-lg" -->
-                                <div class="btn std-button rounded-0 text-uppercase">
-                                    <span class="text-uppercase">Secure Checkout</span>
-                                    <span class="icon">
-                                        <i class="fa fa-lock"></i>
-                                    </span>
-                                </div>    
+                                    <div class="btn std-button rounded-0 text-uppercase">
+                                        <span class="text-uppercase">Secure Checkout</span>
+                                        <span class="icon">
+                                            <i class="fa fa-lock"></i>
+                                        </span>
+                                    </div>    
                                 </a>
                             </td>
                         </tr>

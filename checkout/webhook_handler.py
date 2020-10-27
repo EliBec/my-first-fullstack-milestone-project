@@ -104,7 +104,6 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if order_exists:
-           
             self._send_confirmation_email(order)
 
             return HttpResponse(

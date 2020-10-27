@@ -31,7 +31,7 @@
     {% endif %}    
     <hr>
 
-    {% if products|length > 0 %}
+    {% if products|length > 1 %}
         <!-- sort/filter drow-down -->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
@@ -49,18 +49,16 @@
                 </p>
             </div>
         </div>
+    {% endif %} 
+        
+    <!-- products display section-->
+    {% include 'includes/productlist_display.html' %}
 
-        <!-- products display section-->
-        {% include 'includes/productlist_display.html' %}
-
-        <!-- back to top button -->
-        {% include 'includes/backtotop.html' %}
-
-    {% else %}  
-        <div id="bottom-section-dyn"></div>  
-    {% endif %}
-
+    <!-- back to top button -->
+    {% include 'includes/backtotop.html' %}
+  
 </div>
+
 {% endblock %}
 
 

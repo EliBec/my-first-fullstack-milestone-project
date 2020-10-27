@@ -246,13 +246,11 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 }
 
 
-
 /* Update and Remove links in the Shopping Cart webpage */
 .update-link, 
 .remove-item {
     cursor: pointer;
 }
-
 
 /* Container for Toast messages */
 .message-container {

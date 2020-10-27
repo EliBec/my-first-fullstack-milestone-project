@@ -62,7 +62,7 @@ def checkout(request):
 
         order_form = OrderForm(form_data)
 
-        #  and confirm validity
+        #  confirm validity
         if order_form.is_valid():
             order = order_form.save(commit=False)
             payment_int_id = \
@@ -112,7 +112,7 @@ def checkout(request):
     else:
         cart_session = request.session.get('cart_session', {})
         if not cart_session:
-            # use djandgo message to return (which is displayed in toast)
+            # use djandgo's messages to return message (which is displayed in toast)
             messages.error(request, "Your Shopping Cart is empty!")
             return redirect(reverse('products'))
 

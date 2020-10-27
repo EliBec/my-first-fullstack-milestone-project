@@ -69,7 +69,7 @@ def add_to_cart(request, item_id):
 
     # save the new asssigned quantity value into the session's cart
     request.session['cart_session'] = cart_session
-    print(request.session['cart_session'])
+    # print(request.session['cart_session'])
 
     return redirect(redirect_url)
 
@@ -82,7 +82,7 @@ def update_cart_qty(request, item_id):
     """
     product = get_object_or_404(Product, pk=item_id)
     item_quantity = int(request.POST.get('quantity'))
-    print(item_quantity)
+    # print(item_quantity)
 
     product_size = None
 
@@ -126,8 +126,9 @@ def update_cart_qty(request, item_id):
 
 def remove_from_cart(request, item_id):
     # code to remove item in shopping cart
-    print('remove from cart')
+    # print('remove from cart')
     product = get_object_or_404(Product, pk=item_id)
+
     try:
         product_size = None
 

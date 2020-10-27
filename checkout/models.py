@@ -13,7 +13,9 @@ from profiles.models import UserProfile
 # Create your models here.
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    user_profile = models.ForeignKey(UserProfile, null=True, blank=True, on_delete=models.SET_NULL, related_name='orders')
+    user_profile = models.ForeignKey(UserProfile, null=True, blank=True,
+                                     on_delete=models.SET_NULL,
+                                     related_name='orders')
     created_date = models.DateTimeField(auto_now_add=True)
     customer_fullname = \
         models.CharField(max_length=50, null=False, blank=False)
