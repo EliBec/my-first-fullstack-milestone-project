@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container">
+    <div class="top-section"></div>
+</div>
+{% endblock %}
+
+
+{% block page_content %}
+<div class="overlap"></div>
+<div class="container">
+    <div class="row">
+		<div class="col">
+			<hr>
+			<h2 class="logo-font mb-4">Appointment Confirmation</h2>
+			<hr>
+            <p class="text-black">Your Appointent is all set! Detailed information is listed below. A confirmation email will be sent to <strong>{{ appointment.customer_email }}</strong>.</p>
+		</div>
+	</div>
+    <div class="row">
+		<div class="col">
+            <p class="text-black">Appointment Number <strong>{{ appointment.number }}</strong>, placed on {{appointment.created_date}}</p>
+		</div>
+	</div>
+    <hr>
+
+    <div class="row">
+        {% if appointment %}
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-2"> 
+                <p><strong> Name  </strong> {{ appointment.customer_fullname }} </p>
+                <p><strong> Appointment Date: </strong> {{ appointment.appointment_date }} </p>
+                <p><strong> Appointment Time: </strong> {{ appointment.appointment_time }} </p>
+                <p><strong> Appointment Reason: </strong> {{ appointment.reason }} </p>
+                <p><strong> Addtional Notes: </strong> {{ appointment.notes }} </p>
+            </div>        
+        {% endif %}  
+    </div>    
+    <div class="row">  
+		<div class="col text-center mb-3">
+            <p class="text-black"><strong>We look forward to serving you!</strong></p>
+		</div>
+    </div>
+</div>
+
+{% endblock %}

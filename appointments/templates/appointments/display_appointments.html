@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
+{% endblock %}
+
+
+{% block page_header %}
+<div class="container">
+	<div class="top-section"></div>
+</div>
+{% endblock %}
+
+{% block page_content %}
+<div class="overlap"></div>
+<div class="container">
+    <div class="row">
+		<div class="col">
+			<hr>
+			<h2 class="logo-font mb-4">Your Appointment History</h2>
+			<hr>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-12">
+			<table class="table table-sm table-borderless">
+				<thead>
+					<tr>
+						<th>Number</th>
+                        <th>Made By</th>
+						<th>Date</th>
+						<th>Time</th>
+						<th>Reason</th>
+                        <th>Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for appointment in appointments %}
+					<tr>
+						<td>
+							<a href="">
+								{{ appointment.number|truncatechars:6 }}
+							</a>
+						</td>
+                        <td>{{ appointment.customer_fullname }}
+                            <ul class="list-unstyled">
+                                <li class="small">
+                                    {{ appointment.customer_phone }}
+                                </li>
+                                <li class="small">
+                                    {{ appointment.customer_email }}
+                                </li>
+                            </ul>
+                        </td>
+						<td> {{ appointment.appointment_date }}</td>
+						<td> {{ appointment.appointment_time }}</td>
+						<td> {{ appointment.reason }}</td>
+                        <td> {{ appointment.notes }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+        </div>
+    </div>
+</div>
+{% endblock %}

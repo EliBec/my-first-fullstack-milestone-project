@@ -26,11 +26,21 @@ class Appointment(models.Model):
     reason = models.CharField(max_length=15, choices=Pref.reason_list)
 
     #  model method
-    def _generate_appointment_number(self):
+    def _generate_number(self):
         """
         Generate a random, unique order number using UUID
         """
         return uuid.uuid4().hex.upper()
+
+
+    def save(self, *args, **kwargs):
+        """
+        Override the original save method to set the order number
+        if it hasn't been set already.
+        """
+        if not self.number:
+            self.number = self._generate_number()
+        super().save(*args, **kwargs)
 
     """
     returns the value in the name attrib of the Product class

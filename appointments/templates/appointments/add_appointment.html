@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container">
+    <div class="top-section"></div>
+</div>
+{% endblock %}
+
+{% block page_content %}
+<div class="overlap"></div>
+<div class="container">
+    <div class="row">
+		<div class="col">
+			<hr>
+			<h2 class="logo-font mb-4">Make Your Appoinemtn</h2>
+			<hr>
+		</div>
+	</div> 
+    <div class="row">
+        <div class="col-7">
+            <p><strong>Please fill out this form to book an appointment</strong></p>
+            <form method="POST" action="{% url 'add_appointment' %}" class="form mb-2" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in appointment_form_data %}
+                    {{ field | as_crispy_field }}
+                    {% if field.name == 'appointment_time' %}
+                        <small> Please between the hours of 9 a.m and 5 p.m </small>
+                    {% endif %}    
+                    {% if field.name == 'reason' %}
+                        <small> Please choose a reason for the appointment: </small>
+                    {% endif %}    
+                {% endfor %}
+                <div class="text-right">
+                    <a class="btn btn-outline-blak rounded-0" href="{% url 'appointments' %}">Cancel</a>
+                    <button class="btn btn-black rounded-0" type="submit">Book Appointment</button>
+                </div> 
+            </form>
+        </div>
+        <div class="col-5">
+        </div>
+    </div>  
+</div> <!-- container -->
+{% endblock %}
