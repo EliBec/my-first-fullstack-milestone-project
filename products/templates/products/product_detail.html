@@ -68,6 +68,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- product review -->
+                            <div class="col-12">
+                            <!-- put here number of reviews and a link to the review section -->
+                            <a href="{% url 'add_rating' product.id %}">Write a review</a>
+
+                            </div>
+
                             {% if request.user.is_superuser %}
                                 <p>
                                     <small>
@@ -105,4 +112,9 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block load_last_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'products/js/script.js' %}"></script>  
 {% endblock %}

@@ -7,7 +7,7 @@ from django_countries.fields import CountryField
 
 
 # Create your models here.
-class UserProfile (models.Model):
+class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)

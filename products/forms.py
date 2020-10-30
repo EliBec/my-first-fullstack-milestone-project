@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Category, Subcategory
+from .models import Product, Category, Subcategory, Rating
 from .widgets import CustomClearableFileInput
 
 
@@ -33,3 +33,25 @@ class ProductProfileForm(forms.ModelForm):
             friendly_names_subcat
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'border-black'
+
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+
+        exclude = ['product', 'customer']
+
+        widgets = {
+            'comment': forms.Textarea(attrs={'rows': 3, 'cols': 5,
+                                      'placeholder':
+                                             "How you use this product?"
+                                             " What do you find a great?"
+                                             " What do find not so great?"}),
+
+            'rating': forms.NumberInput(attrs={"type": 'number',
+                                        "value": 1,
+                                               "min": 1,
+                                               "max": 5, }),
+        }
+
+

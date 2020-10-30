@@ -1,14 +1,14 @@
 from django import forms
-from .models import Appointment, UserProfile
+from .models import Appointment
 
 
 class AppointmentForm(forms.ModelForm):
+
     class Meta:
         model = Appointment
         # only include the fields that are editable by user
         fields = ('customer_fullname', 'customer_phone', 'customer_email',
-                 'appointment_date', 'appointment_time', 'reason', 'notes',)
-
+                  'appointment_date', 'appointment_time', 'reason', 'notes',)
 
     def __init__(self, *args, **kwargs):
             """

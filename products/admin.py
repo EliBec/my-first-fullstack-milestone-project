@@ -32,6 +32,18 @@ class SubcategoryAdmin(admin.ModelAdmin):
     )
 
 
+class RatingsAdmin(admin.ModelAdmin):
+    list_display = (
+        'product',
+        'customer',
+        'nickname',
+        'rating',
+        'headline',
+        'comment',
+        'recommend',
+    )
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Subcategory, SubcategoryAdmin)

@@ -11,3 +11,11 @@ class Preference:
         (PRODUCT_STYLE_WOMAN, 'Woman'),
         (PRODUCT_STYLE_UNISEX, 'Unisex'),
     )
+
+    RECOMMENDATION_YES = 'yes'
+    RECOMMENDATION_NO = 'no'
+
+    recommendation_choices = (
+        (RECOMMENDATION_YES, 'Yes'),
+        (RECOMMENDATION_NO, 'No'),
+    )

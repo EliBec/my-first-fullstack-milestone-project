@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from .utils import Preference as Pref
 
 
@@ -64,3 +65,22 @@ class Subcategory(models.Model):
 
     def get_friendly_name_sub(self):
         return self.friendly_name
+
+
+class Rating(models.Model):
+    product = models.ForeignKey('Product', null=True,
+                                blank=True, on_delete=models.CASCADE,
+                                related_name="ratings")
+    customer = models.ForeignKey(User, null=True,
+                                 blank=True, on_delete=models.CASCADE,
+                                 related_name="ratings")
+    nickname = models.CharField(max_length=30, null=False, blank=False)
+    rating = models.DecimalField(max_digits=6, decimal_places=2,
+                                 null=True, blank=True)
+    headline = models.CharField(max_length=150, null=False, blank=False)
+    comment = models.TextField(max_length=1000, null=False, blank=True)
+    recommend = models.CharField(max_length=3,
+                                 choices=Pref.recommendation_choices)
+
+    def __str__(self):
+        return self.headline

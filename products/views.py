@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
-from .models import Product, Category, Subcategory
-from .forms import ProductProfileForm
+from .models import Product, Category, Subcategory, Rating
+#  from profiles.models import UserProfile
+from .forms import ProductProfileForm, RatingForm
 
 
 # Create your views here.
@@ -123,10 +124,13 @@ def display_product_detail(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
 
+    product_rating = Rating.objects.filter(product__name=product)
+
     template = 'products/product_detail.html'
 
     context = {
         "product": product,
+        "product_rating": product_rating,
     }
 
     return render(request, template, context)
@@ -233,3 +237,40 @@ def delete_product(request, product_id):
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
 
+
+def add_rating(request, product_id):
+
+    if request.user.is_authenticated:
+        #  profile = UserProfile.objects.get(user=request.user)
+        #  Attach the user's profile to the apointment
+        product = get_object_or_404(Product, pk=product_id)
+
+        if request.method == "POST":
+            #  instance of the ProductProfileForm based
+            #  on the request date from POST
+
+            rating_form_data = RatingForm(request.POST)
+            if rating_form_data.is_valid():
+                #  rating =
+                rating_form_data.save()
+                messages.success(request, 'Rating Published Successfully!')
+                return redirect(reverse('display_product_detail',
+                                args=[product.id]))
+            else:
+                messages.error(request,
+                               'Failed to save your reating.'
+                               'Please ensure the form is correclty filled.')
+        else:
+            rating_form_data = RatingForm()
+    else:
+        messages.error(request, 'You must have an account and purchase'
+                                'this product in order to post a review')
+
+    context = {
+        'rating_form_data': rating_form_data,
+        'product': product,
+    }
+
+    template = 'products/add_rating.html'
+
+    return render(request, template, context)
