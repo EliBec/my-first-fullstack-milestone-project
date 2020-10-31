@@ -3,7 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from .models import Product, Category, Subcategory, Rating
-#  from profiles.models import UserProfile
+from profiles.models import UserProfile
+from checkout.models import Order, OrderLineItem
+
 from .forms import ProductProfileForm, RatingForm
 
 
@@ -122,15 +124,64 @@ def products_by_category(request, category_name):
 
 def display_product_detail(request, product_id):
 
+    rating_count = 0
+    rating_average = 0
+    rating_list = {}
+    user_rating = {}
+    confirmed_purchase = False
+    customer_order = None
+    rating_count = 0
+
+
     product = get_object_or_404(Product, pk=product_id)
 
-    product_rating = Rating.objects.filter(product__name=product)
+    rating_list = Rating.objects.filter(product=product_id)
+    print(rating_list)
+
+    if rating_list is not None:
+
+        for rating in rating_list:
+            rating_count = rating_count + 1
+
+        if rating_count > 0:
+
+            rating_average = product.rating / rating_count
+
+            print(rating_average)
+
+            review = None
+
+    if request.user.is_authenticated:
+        print("usuario existe")
+        profile = request.user.userprofile
+        print(profile)
+
+        # see if there is any order linked to the logged-in user
+        customer_orders = Order.objects.filter(user_profile=profile)
+
+        # if order found, then find the items for that order based on the 
+        # product if passed in
+        for order in customer_orders:
+            for item in order.lineitems.all():
+                if item.product.id == product.id:
+                    confirmed_purchase = True
+                    break
+
+        if confirmed_purchase:
+            print("conpra confirmada")
+            user_rating = Rating.objects.filter(
+                          customer=request.user,
+                          product=product_id)
 
     template = 'products/product_detail.html'
 
     context = {
         "product": product,
-        "product_rating": product_rating,
+        "rating_average": rating_average,
+        "rating_list": rating_list,
+        "user_rating": user_rating,
+        "confirmed_purchase":confirmed_purchase,
+        "rating_count": rating_count,
     }
 
     return render(request, template, context)
@@ -161,8 +212,7 @@ def add_product(request):
         return redirect(reverse('home'))
 
     if request.method == "POST":
-        #  instance of the ProductProfileForm based
-        #  on the request date from POST
+        #  instance of the ProductProfileForm based on the request data from POST
         product_form_data = ProductProfileForm(request.POST, request.FILES)
         if product_form_data.is_valid():
             product = product_form_data.save()
@@ -238,33 +288,60 @@ def delete_product(request, product_id):
     return redirect(reverse('products'))
 
 
+"""
+The following mehtods take care of Product Rating management
+"""
+
+
+@login_required
 def add_rating(request, product_id):
 
-    if request.user.is_authenticated:
-        #  profile = UserProfile.objects.get(user=request.user)
-        #  Attach the user's profile to the apointment
-        product = get_object_or_404(Product, pk=product_id)
+    confirmed_purchase = False
 
-        if request.method == "POST":
-            #  instance of the ProductProfileForm based
-            #  on the request date from POST
+    product = get_object_or_404(Product, pk=product_id)
 
-            rating_form_data = RatingForm(request.POST)
-            if rating_form_data.is_valid():
-                #  rating =
-                rating_form_data.save()
-                messages.success(request, 'Rating Published Successfully!')
-                return redirect(reverse('display_product_detail',
+    profile = UserProfile.objects.get(user=request.user)
+    # see if there is any order linked to the logged-in user
+    customer_orders = Order.objects.filter(user_profile=profile)
+
+    # if order found, then get items form order based on product passed in
+    for order in customer_orders:
+        for item in order.lineitems.all():
+            if item.product.id == product.id:
+                confirmed_purchase = True
+                break
+
+    if not confirmed_purchase:
+        messages.error(request, 'You must have purchased this product in order to post a review')
+        return redirect(reverse('display_product_detail',
                                 args=[product.id]))
-            else:
-                messages.error(request,
-                               'Failed to save your reating.'
-                               'Please ensure the form is correclty filled.')
+
+    if request.method == "POST":
+
+        rating_form_data = {
+                'nickname': request.POST['nickname'],
+                'rating': request.POST['rating'],
+                'headline': request.POST['headline'],
+                'comment': request.POST['comment'],
+                'recommend': request.POST['recommend'],
+            }
+
+        rating_form_data = RatingForm(rating_form_data)
+        if rating_form_data.is_valid():
+            rating = rating_form_data.save(commit=False)
+            rating.customer = request.user
+            rating.product = product
+            rating.save()
+            messages.success(request,
+                             'Your Rating has been Published! Thank you!')
+            return redirect(reverse('display_product_detail',
+                                    args=[product.id]))
         else:
-            rating_form_data = RatingForm()
+            messages.error(request,
+                           'Failed to save your reating.'
+                           'Please ensure the form is correclty filled.')
     else:
-        messages.error(request, 'You must have an account and purchase'
-                                'this product in order to post a review')
+        rating_form_data = RatingForm(instance=profile)
 
     context = {
         'rating_form_data': rating_form_data,
@@ -274,3 +351,82 @@ def add_rating(request, product_id):
     template = 'products/add_rating.html'
 
     return render(request, template, context)
+
+@login_required
+def edit_rating(request, product_id):
+
+    confirmed_purchase = False
+
+    product = get_object_or_404(Product, pk=product_id)
+    
+    profile = UserProfile.objects.get(user=request.user)
+    # see if there is any order linked to the logged-in user
+    customer_orders = Order.objects.filter(user_profile=profile)
+
+    # if order found, then find the items for that order based on the 
+    # product if passed in
+    for order in customer_orders:
+        for item in order.lineitems.all():
+            if item.product.id == product.id:
+                confirmed_purchase = True
+                break
+
+    if not confirmed_purchase:
+        messages.error(request, 'You must have purchased this product and posted a review in order to edit it')
+        return redirect(reverse('display_product_detail',
+                                args=[product.id]))
+
+    if request.method == "POST":
+        rating_form_data = RatingForm(request.POST, instance=user)
+        if rating_form_data.is_valid():
+            rating_form_data.save()
+            messages.success(request,
+                             'Your review has been succesfully updated!')
+            return redirect(reverse('display_product_detail',
+                                    args=[product.id]))
+        else:
+            messages.error(request,
+                           'Failed to update the review.'
+                           'Please ensure form is correctly filled')
+    else:
+        rating_form_data = RatingForm(instance=profile)
+
+    template = 'products/edit_rating.html'
+
+    context = {
+        'product': product,
+        'rating_form_data': rating_form_data,
+    }
+    return render(request, template, context)
+   
+
+@login_required
+def delete_rating(request, product_id):
+
+    confirmed_purchase = False
+
+    product = get_object_or_404(Product, pk=product_id)
+
+    profile = UserProfile.objects.get(user=request.user)
+    # see if there is any order linked to the logged-in user
+    customer_orders = Order.objects.filter(user_profile=profile)
+
+    # if order found, then find the items for that order based on the 
+    # product if passed in
+    for order in customer_orders:
+        for item in order.lineitems.all():
+            if item.product.id == product.id:
+                confirmed_purchase = True
+                break
+
+    if not confirmed_purchase:
+        messages.error(request, 'You must have purchased this product and posted a review in order to delete it')
+        return redirect(reverse('display_product_detail',
+                                args=[product.id]))
+
+    rating = get_object_or_404(Rating,
+                               customer=request.user, product=product_id)
+    rating.delete()
+    messages.success(request, 'Your review has been successfully deleted.')
+    return redirect(reverse('display_product_detail',
+                            args=[product_id]))

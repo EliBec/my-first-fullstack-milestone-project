@@ -96,8 +96,8 @@ def checkout(request):
                             order_line_item.save()
                 except Product.DoesNotExist:
                     messages.error(request, (
-                        "One of the products in your bag wasn't\
-                             found in our database."
+                        "One of the products in your bag wasn't"
+                            "found in our database."
                         "Please call us for assistance!")
                     )
                     order.delete()
@@ -112,7 +112,7 @@ def checkout(request):
     else:
         cart_session = request.session.get('cart_session', {})
         if not cart_session:
-            # use djandgo's messages to return message (which is displayed in toast)
+            # djandgo's messages to return message (displayed in toast)
             messages.error(request, "Your Shopping Cart is empty!")
             return redirect(reverse('products'))
 

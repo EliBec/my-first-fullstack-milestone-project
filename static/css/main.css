@@ -199,6 +199,16 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
     font-size: 1em;
 }
 
+.star-checked {
+    color: orange;
+}
+
+.text-green {
+    color:#388e3c;
+}
+
+
+
 /****** Back to top arrow button *******/
 
 #return-to-top-btn {

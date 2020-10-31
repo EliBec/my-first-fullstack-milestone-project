@@ -42,6 +42,23 @@
             <div class="col-lg-6 col-md-6 col-sm-12 mb-5"> 
                     <p>{{ product.brand }}</p>
                     <p>{{ product.name }}</p>
+                     <!-- product review -->
+                            <div class="col-12 mb-4">
+                                 <!-- Product Rating -->  
+                                {% if rating_average %}
+                                    <medium class="text-md-left"><i class="fa fa-star star-checked mr-1"></i>{{ rating_average }} / 5  </medium>
+                                {% else %}
+                                    <medium class="text-md-left">No Rating | </medium>
+                                {% endif %}
+                                {% if confirmed_purchase and rating_count == 0 %}
+                                    <!-- put here number of reviews and a link to the review section -->
+                                    <p><a href="{% url 'add_rating' product.id %}">Write a review</a></p>
+                                {% endif %}
+
+                                <p class="text-green mt-4"> {{ rating_count }} Review{{ rating_count|pluralize }} </p>
+
+                            </div>
+
                     <p>${{ product.price }}</p>
                     <p>Product Color</p>
                     <p>{{ product.short_desc}}</p>
@@ -67,12 +84,6 @@
                                         <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="50" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
                                     </div>
                                 </div>
-                            </div>
-                            <!-- product review -->
-                            <div class="col-12">
-                            <!-- put here number of reviews and a link to the review section -->
-                            <a href="{% url 'add_rating' product.id %}">Write a review</a>
-
                             </div>
 
                             {% if request.user.is_superuser %}
@@ -109,6 +120,60 @@
                     </form>
             </div>        
         {% endif %}       
+    </div>
+    <div class="row">
+        <div class="col-7 mb-5">
+            {% for rating in rating_list %}
+                {% if rating.rating == 5 %}
+                    {% for i in 'xxxxx' %}
+                        <span class="fa fa-star star-checked"></span> 
+                    {% endfor %}
+                <br>
+                {% elif rating.rating == 4 %}
+                    {% for i in 'xxxx' %}
+                        <span class="fa fa-star star-checked"></span>
+                    {% endfor %}
+                    {% for i in 'x' %}
+                    <span class="fa fa-star star "></span>
+                    {% endfor%}
+                <br>
+                {% elif rating.rating == 3 %}
+                    {% for i in 'xxx' %}
+                        <span class="fa fa-star star-checked"></span>
+                    {% endfor %}
+                    {% for i in 'xx' %}
+                    <span class="fa fa-star "></span>
+                    {% endfor%}
+                <br>
+                {% elif rating.rating == 2 %}
+                    {% for i in 'xx' %}
+                        <span class="fa fa-star star-checked"></span>
+                    {% endfor %}
+                    {% for i in 'xxx' %}
+                    <span class="fa fa-star"></span>
+                    {% endfor%}
+                {% elif rating.rating == 1 %}
+                    {% for i in 'x' %}
+                        <span class="fa fa-star star-checked"></span>
+                    {% endfor %}
+                    {% for i in 'xxxx' %}
+                    <span class="fa fa-star"></span>
+                    {% endfor%}
+                {% endif %}  
+                
+                <p>Review posted by: </p> {{ rating.nickname }}
+                <p>Would you recommend this a friend? </p> {{ rating.recommend}}
+                <p> Comments: {{ rating.comments }} </p> 
+                <br>
+                
+                {% if rating.customer == request.user and confirmed_purchase %}
+                    <a href="{% url 'edit_rating' product.id %}">Edit review</a>
+                    <a href="{% url 'delete_rating' product.id %}">Delete review</a>
+                {% endif %}   
+
+            {% endfor %}
+            
+        </div>
     </div>
 </div>
 

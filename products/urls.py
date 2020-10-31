@@ -15,7 +15,10 @@ urlpatterns = [
          name='edit_product'),
     path('deleteproduct/<int:product_id>', views.delete_product,
          name='delete_product'),
-    path('add_rating/<int:product_id>', views.add_rating,
+    path('add_rating/<int:product_id>/', views.add_rating,
          name='add_rating'),
+    path('edit_rating/<int:product_id>', views.edit_rating,
+         name='edit_rating'),
+    path('delete_rating/<int:product_id>', views.delete_rating,
+         name='delete_rating'),
 ]
-

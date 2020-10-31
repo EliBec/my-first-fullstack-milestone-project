@@ -39,7 +39,7 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
 
-        exclude = ['product', 'customer']
+        exclude = ('product', 'customer')
 
         widgets = {
             'comment': forms.Textarea(attrs={'rows': 3, 'cols': 5,
@@ -53,5 +53,3 @@ class RatingForm(forms.ModelForm):
                                                "min": 1,
                                                "max": 5, }),
         }
-
-

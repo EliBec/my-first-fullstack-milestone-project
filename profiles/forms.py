@@ -5,7 +5,6 @@ from .models import UserProfile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        # only include the fields that are editable by user
         exclude = ('user',)
 
     def __init__(self, *args, **kwargs):
