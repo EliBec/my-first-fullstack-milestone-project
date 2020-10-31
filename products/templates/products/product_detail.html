@@ -23,9 +23,15 @@
                 <ol class="breadcrumb pl-0">
                     <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a><i class="fa fa-caret-right mx-2"
           aria-hidden="true"></i></li>
-                    <li class="breadcrumb-item active"><a href="#">Bikes</a><i class="fa fa-caret-right mx-2"
+                    {% if product.category %}   
+                    <li class="breadcrumb-item active"><a href="{% url 'products_by_category' product.category.name %}">{{ product.category.friendly_name }}</a><i class="fa fa-caret-right mx-2"
           aria-hidden="true"></i></li>
-                    <li class="breadcrumb-item active" aria-current="page">Product Category</li>
+                     {% endif %}   
+                     {% if product.subcategory %}   
+                    <li class="breadcrumb-item active"><a href="{% url 'products_by_category' product.subcategory.name %}">{{ product.subcategory.friendly_name }}</a><i class="fa fa-caret-right mx-2"
+          aria-hidden="true"></i></li>
+                     {% endif %}   
+                    <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
                 </ol>
             </nav>
         </div>
@@ -33,157 +39,158 @@
     <div class="row">
         {% if product %}
             <div class="col-lg-6 col-md-6 col-sm-12 mb-5"> 
-                    {% if product.image %}
-                            <a href="{{ product.image.url }}" target="_blank">
-                                <img  class="img-detail" src="{{ product.image.url }}" alt="{{ product.name }}">
-                            </a>
-                        {% else %}
-                            <a href="#">
-                                <img class="img-detail" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
-                            </a>
-                    {% endif %}
+                {% if product.image %}
+                    <a href="{{ product.image.url }}" target="_blank">
+                        <img  class="img-detail" src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </a>
+                {% else %}
+                    <a href="#">
+                        <img class="img-detail" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                    </a>
+                {% endif %}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mb-5"> 
-                    <p>{{ product.brand }}</p>
-                    <p>{{ product.name }}</p>
-                     <!-- product review -->
-                            <div class="col-12 mb-4">
-                                 <!-- Product Rating -->  
-                                {% if rating_average %}
-                                    <medium class="text-md-left"><i class="fa fa-star star-checked mr-1"></i>{{ rating_average }} / 5  </medium>
-                                {% else %}
-                                    <medium class="text-md-left">No Rating | </medium>
-                                {% endif %}
-                                {% if confirmed_purchase and rating_count == 0 %}
-                                    <!-- put here number of reviews and a link to the review section -->
-                                    <p><a href="{% url 'add_rating' product.id %}">Write a review</a></p>
-                                {% endif %}
-
-                                <p class="text-green mt-4"> {{ rating_count }} Review{{ rating_count|pluralize }} </p>
-
-                            </div>
-
-                    <p>${{ product.price }}</p>
-                    <p>Product Color</p>
-                    <p>{{ product.short_desc}}</p>
-                    <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
-                        {% csrf_token %}
-                        {% if product.has_sizes %}
-                            <div class="col-12 p-0">
-                                <p><strong>Size:</strong></p>
-                                <select class="form-control rounded-0 w-50" name="product_size" id="id_product_size">
-                                    <option value="xs">XS</option>
-                                    <option value="s">S</option>
-                                    <option value="m" selected>M</option>
-                                    <option value="l">L</option>
-                                    <option value="xl">XL</option>
-                                </select>
-                            </div>
+                <p class="product-brand-dtl">{{ product.brand }}</p>
+                <p class="product-title-dtl">{{ product.name }}</p>
+                <div class="col-12 mb-4 mx-0 p-0">
+                    <p class="mt-4">
+                        {% if rating_count == 0 %}
+                         <span class="text-muted"> No Reviews </span>
+                        {% else %}
+                            <!-- link wil take the user to the review sectio on the bottom on the page -->
+                            <a class="text-green" href="#review-section">  {{ rating_count }} Review{{ rating_count|pluralize }}</a>
+                        {% endif %} 
+                        {% if confirmed_purchase and not user_rating %}
+                            <span class="ml-2">| </span>
+                            <a class="text-green ml-2 a-underline" href="{% url 'add_rating' product.id %}"> Write a review</a>
                         {% endif %}
-                        <div class="form-row">
-                            <div class="col-12">
-                                <p class="mt-3"><strong>Quantity:</strong></p>
-                                <div class="form-group w-50">
-                                    <div class="input-group">
-                                        <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="50" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            {% if request.user.is_superuser %}
-                                <p>
-                                    <small>
-                                        <a style="color:darkgreen;" href="{% url 'edit_product' product.id %}">Edit product</a> |
-                                        <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
-                                    </small> 
-                                </p>     
-                            {% endif %}
-                            <!-- section for pick up at the store or delivery 
-                            <div class="text-left p-1">
-                                <div class="radio"> 
-                                    <input id="delivery" type="radio" name="ship-or-pickup" value="delivery"/>
-                                    <label id="shipTolbl" for="shipTo">Delivery</label>
-                                </div>
-                                <div class="radio">
-                                    <input id="storepickup" type="radio" name="ship-or-pickup" checked value="storepickup"/>
-                                    <label id="storePickuplbl" for="storePickup">Pick up in store</label>
-                                </div>
-                            </div> -->
-                            <!-- some of the code below was take from CI project example and modified for this project -->
-                            <div class="col-12">
-                                <a href="{% url 'products' %}" class="btn btn-border-style rounded-0 mt-5">
-                                    <span class="icon">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </span>
-                                    <span class="text-uppercase">Keep Shopping</span>
-                                </a>
-                                <input type="submit" class="btn std-button rounded-0 text-uppercase mt-5" value="Add to Bag">
-                            </div>
-                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    </p>
+                    {% if rating_average %}
+                        <medium class="text-md-left">Rating: {{ rating_average }} / 5 </medium>
+                    {% endif %}    
+                </div> 
+                <p class="product-price-dtl">$ {{ product.price }}</p>
+                {% if product.color %}
+                    <p> <strong>Color:  </strong> {{ product.color }}</p>
+                {% endif %}
+                <p>{{ product.short_desc}}</p>
+                <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
+                    {% csrf_token %}
+                    {% if product.has_sizes %}
+                        <div class="col-12 p-0">
+                            <p><strong>Size:</strong></p>
+                            <select class="form-control rounded-0 w-50" name="product_size" id="id_product_size">
+                                <option value="xs">XS</option>
+                                <option value="s">S</option>
+                                <option value="m" selected>M</option>
+                                <option value="l">L</option>
+                                <option value="xl">XL</option>
+                            </select>
                         </div>
-                    </form>
+                    {% endif %}
+                    <div class="form-row">
+                        <div class="col-12">
+                            <p class="mt-3"><strong>Quantity:</strong></p>
+                            <div class="form-group w-50">
+                                <div class="input-group">
+                                    <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="50" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
+                                </div>
+                            </div>
+                        </div>
+                        {% if request.user.is_superuser %}
+                            <p>
+                                <small>
+                                    <a style="color:darkgreen;" href="{% url 'edit_product' product.id %}">Edit product</a> |
+                                    <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                                </small> 
+                            </p>     
+                        {% endif %}
+                        <!-- some of the code below was take from CI project example and modified for this project -->
+                        <div class="col-12">
+                            <a href="{% url 'products' %}" class="btn btn-border-style rounded-0 mt-5">
+                                <span class="icon">
+                                    <i class="fa fa-chevron-left"></i>
+                                </span>
+                                <span class="text-uppercase">Keep Shopping</span>
+                            </a>
+                            <input type="submit" class="btn std-button rounded-0 text-uppercase mt-5" value="Add to Bag">
+                        </div>
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    </div>
+                </form>
             </div>        
         {% endif %}       
     </div>
     <div class="row">
-        <div class="col-7 mb-5">
-            {% for rating in rating_list %}
-                {% if rating.rating == 5 %}
-                    {% for i in 'xxxxx' %}
-                        <span class="fa fa-star star-checked"></span> 
-                    {% endfor %}
-                <br>
-                {% elif rating.rating == 4 %}
-                    {% for i in 'xxxx' %}
-                        <span class="fa fa-star star-checked"></span>
-                    {% endfor %}
-                    {% for i in 'x' %}
-                    <span class="fa fa-star star "></span>
-                    {% endfor%}
-                <br>
-                {% elif rating.rating == 3 %}
-                    {% for i in 'xxx' %}
-                        <span class="fa fa-star star-checked"></span>
-                    {% endfor %}
-                    {% for i in 'xx' %}
-                    <span class="fa fa-star "></span>
-                    {% endfor%}
-                <br>
-                {% elif rating.rating == 2 %}
-                    {% for i in 'xx' %}
-                        <span class="fa fa-star star-checked"></span>
-                    {% endfor %}
-                    {% for i in 'xxx' %}
-                    <span class="fa fa-star"></span>
-                    {% endfor%}
-                {% elif rating.rating == 1 %}
-                    {% for i in 'x' %}
-                        <span class="fa fa-star star-checked"></span>
-                    {% endfor %}
-                    {% for i in 'xxxx' %}
-                    <span class="fa fa-star"></span>
-                    {% endfor%}
-                {% endif %}  
-                
-                <p>Review posted by: </p> {{ rating.nickname }}
-                <p>Would you recommend this a friend? </p> {{ rating.recommend}}
-                <p> Comments: {{ rating.comments }} </p> 
-                <br>
-                
-                {% if rating.customer == request.user and confirmed_purchase %}
-                    <a href="{% url 'edit_rating' product.id %}">Edit review</a>
-                    <a href="{% url 'delete_rating' product.id %}">Delete review</a>
-                {% endif %}   
-
-            {% endfor %}
-            
+        <div id="review-section" class="col-7 mb-2">
+            <h5>Reviewed by {{ rating_count }} customer{{ rating_count|pluralize }}</h5>
         </div>
     </div>
+    <hr>    
+    <div class="row">
+        <div class="col-12 mb-5 rating-wrapper">
+            <p>
+                <span class="mb-2 mt-2">
+                {% for rating in rating_list %}
+                    {% if rating.rating == 5 %}
+                        {% for i in 'xxxxx' %}
+                            <span class="fa fa-star star-checked"></span> 
+                        {% endfor %}
+                    <br>
+                    {% elif rating.rating == 4 %}
+                        {% for i in 'xxxx' %}
+                            <span class="fa fa-star star-checked"></span>
+                        {% endfor %}
+                        {% for i in 'x' %}
+                        <span class="fa fa-star star "></span>
+                        {% endfor%}
+                    <br>
+                    {% elif rating.rating == 3 %}
+                        {% for i in 'xxx' %}
+                            <span class="fa fa-star star-checked"></span>
+                        {% endfor %}
+                        {% for i in 'xx' %}
+                        <span class="fa fa-star "></span>
+                        {% endfor%}
+                    <br>
+                    {% elif rating.rating == 2 %}
+                        {% for i in 'xx' %}
+                            <span class="fa fa-star star-checked"></span>
+                        {% endfor %}
+                        {% for i in 'xxx' %}
+                        <span class="fa fa-star"></span>
+                        {% endfor%}
+                    {% elif rating.rating == 1 %}
+                        {% for i in 'x' %}
+                            <span class="fa fa-star star-checked"></span>
+                        {% endfor %}
+                        {% for i in 'xxxx' %}
+                        <span class="fa fa-star"></span>
+                        {% endfor%}
+                    {% endif %}  
+                </span>
+            </p>    
+            <p class="mt-2"><strong> Posted by: </strong>{{ rating.nickname }} </p>
+            <p><strong>Would you recommend this a friend? </strong> {{ rating.recommend|capfirst}} </p>
+            <p><strong>Comments:</strong> {{ rating.comment }} </p> 
+            <br>
+                {% if rating.customer == request.user and confirmed_purchase %}
+                    <a style="color:darkgreen;" href="{% url 'edit_rating' product.id %}">Edit review</a> |
+                    <a class="text-danger" href="{% url 'delete_rating' product.id %}">Delete review</a>
+                {% endif %}
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- back to top button -->
+    {% include 'includes/backtotop.html' %}
 </div>
 
 {% endblock %}
 
 {% block load_last_js %}
 {{ block.super }}
+<script>
+</script>
 <script type="text/javascript" src="{% static 'products/js/script.js' %}"></script>  
 {% endblock %}

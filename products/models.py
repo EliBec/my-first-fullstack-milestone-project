@@ -13,7 +13,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
     short_desc = models.TextField()
     long_desc = models.TextField()
-    color = models.CharField(max_length=50, null=False, blank=False) 
+    color = models.CharField(max_length=50, null=False, blank=True) 
     sku = models.CharField(max_length=254, null=False, blank=False)
     brand = models.CharField(max_length=50, null=False, blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2,

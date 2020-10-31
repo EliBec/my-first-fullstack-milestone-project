@@ -1,7 +1,6 @@
 // BackToTop button functionality
-var toTopButtonElem = document.getElementById('#return-to-top-btn'); 
+var toTopButtonElem = document.getElementById('return-to-top-btn');
 if (toTopButtonElem != null) { 
-
     toTopButton = document.getElementById("return-to-top-btn");
 
         window.onscroll = function() {scrollFunction()};
@@ -21,12 +20,11 @@ if (toTopButtonElem != null) {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }
+    
 }
 
-
-
 // sorting functionality 
-var sortingElem = document.getElementById('#sort-option'); 
+var sortingElem = document.getElementById('sort-option'); 
 if (sortingElem != null) { 
 
     $('#sort-option').change(function() {

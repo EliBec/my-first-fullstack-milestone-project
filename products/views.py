@@ -129,7 +129,7 @@ def display_product_detail(request, product_id):
     rating_list = {}
     user_rating = {}
     confirmed_purchase = False
-    customer_order = None
+    customer_orders = None
     rating_count = 0
 
 
@@ -143,6 +143,7 @@ def display_product_detail(request, product_id):
         for rating in rating_list:
             rating_count = rating_count + 1
 
+        print(rating_count)
         if rating_count > 0:
 
             rating_average = product.rating / rating_count
@@ -159,8 +160,10 @@ def display_product_detail(request, product_id):
         # see if there is any order linked to the logged-in user
         customer_orders = Order.objects.filter(user_profile=profile)
 
-        # if order found, then find the items for that order based on the 
-        # product if passed in
+        """
+        if order found, then find the items for that order based on the
+        product if passed in
+        """
         for order in customer_orders:
             for item in order.lineitems.all():
                 if item.product.id == product.id:
@@ -180,7 +183,7 @@ def display_product_detail(request, product_id):
         "rating_average": rating_average,
         "rating_list": rating_list,
         "user_rating": user_rating,
-        "confirmed_purchase":confirmed_purchase,
+        "confirmed_purchase": confirmed_purchase,
         "rating_count": rating_count,
     }
 

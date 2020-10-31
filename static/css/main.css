@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap&display:100,200,300,400,500,600,700');
+
+/*
 html,
 body {
    margin:0;
    padding:0;
    height:100%;
-}
+} */
 
 .nav-wrapper {
     background-color: #36A21E !important;
@@ -74,6 +77,10 @@ body {
 .drop-left {
     left: auto !important;
     right: 0 !important;
+}
+
+.a-underline {
+    text-decoration: underline;
 }
 
 .search-bar-mobile{
@@ -184,20 +191,43 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 }
 
 
-.product-title {
+.product-title, .product-brand {
     color: #1A8849;
     margin:0%;
     font-size: 1em;
+    font-weight:500;
 }
 
-.product-price{
-    font-size: 1em;
-    color:black;
+.product-brand{
+    font-family: 'Acme', sans-serif;
 }
 
-.product-title {
-    font-size: 1em;
+ .product-price, .product-price-dtl, 
+ .product-brand-dtl, .product-title-dtl {
+     color: black;
+ }
+
+.product-brand-dtl {
+    font-size: 1.8em;
+    font-weight:500;
 }
+
+.product-title-dtl{
+    margin:0%;
+    font-size: 1.4em;
+    font-weight:500;
+}
+
+.product-price, .product-title{
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.product-price-dtl {
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
 
 .star-checked {
     color: orange;
@@ -404,6 +434,20 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
     background: #388e3c;
     color: #fafafa !important; 
 }
+
+.btn-border-style-lite {
+    border:1px #36250C solid;
+    background:#fafafa;
+    color: black !important; 
+    border-radius: 3px !important;
+}
+
+.btn-border-style-lite:hover,
+.btn-border-style-lite:active,
+.btn-border-style-lite:focus {
+    background:  rgb(215, 233, 214);
+}
+
 
 .std-button {
     border:1px black solid;

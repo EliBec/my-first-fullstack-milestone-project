@@ -1,28 +1,26 @@
-<div class="row mb-15">
-
+<div class="row mb-15 prod-list-wrapper">
 	{% for product in products %}
-	<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 ml-5 text-center">
+	<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 text-center prod-wrapper">
 		{% if product.image %}
             <a href="{% url 'display_product_detail' product.id %}">
-                <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                <img class="img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
             </a>
 		{% else %}
 		    <a href="{% url 'display_product_detail' product.id %}">
-				<img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+				<img class="img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
             </a>
 		{% endif %}
-		<p class="product-brand">{{ product.brand }}</p>
-		<a href="{% url 'display_product_detail' product.id %}">
-			<p class="product-title">{{ product.name }}</p>
+        <a href="{% url 'display_product_detail' product.id %}">
+		    <p class="product-brand">{{ product.brand }}</p>
+			<p class="product-title">{{ product.name|truncatechars:"30"  }}</p>
 		</a>
-		<p class="product-price">${{ product.price }}</p>
+		<p class="product-price pt-2">${{ product.price }}</p>
 		<a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
 			{{ product.category.friendly_name }}
 		</a> &#62;
 		<a class="text-muted" href="{% url 'products' %}?category={{ product.subcategory.name }}">
 			{{ product.subcategory.friendly_name }}
 		</a>
-
         {% if request.user.is_superuser %}
             <p>
                 <small>

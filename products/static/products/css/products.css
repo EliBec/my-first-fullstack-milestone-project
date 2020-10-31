@@ -2,7 +2,31 @@
     color: orange;
 }
 
-
 .text-green {
     color:#388e3c !important;
 }
+
+.prod-list-wrapper {
+    background-color: white;
+    padding:10px;
+}
+
+.prod-wrapper {
+   margin:auto;
+}
+
+.prod-wrapper img:hover,
+.prod-wrapper img:active,
+.prod-wrapper img:focus{
+    opacity: .8;
+    transition: 0.1s all ease-in-out 0.1s;
+}
+
+.rating-wrapper {
+    border-radius: 4px;
+    border: 1px #388e3c solid;
+    background-color: white;
+    padding:15px;
+}
+
+
