@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap&display:100,200,300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap:100,200,300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap:100,200,300,400,500,600,700');
 
-/*
 html,
 body {
-   margin:0;
-   padding:0;
-   height:100%;
-} */
+    font-family: 'Poppins', sans-serif;
+} 
 
 .nav-wrapper {
     background-color: #36A21E !important;
@@ -18,6 +16,20 @@ body {
 
 .navbar-nav > li > a {
     color: #fafafa !important;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+
+/* eb*/
+.nav-link {
+    transition: all 250ms ease-in-out;
+}
+
+/*eb*/
+/* Override font folor on top navigation bar */
+.navbar-nav .nav-item:hover .nav-link  {
+    color: #36250C !important;
 }
 
 .nav-style {
@@ -31,6 +43,14 @@ body {
 .nav-link {
     padding: .5rem .4rem;
 }
+
+
+.fa-user:hover,
+.fa-shopping-cart:hover {
+    color: #36250C !important;
+    transition: all 250ms ease-in-out;
+}
+
 
 
 .shop-menu, .shop-menu > ul {
@@ -101,7 +121,7 @@ body {
 }
 
 #search-button:hover {
-    background-color:#78c07c;
+    background-color:#36250C ;
     box-shadow:transparent;
 }
 
@@ -613,7 +633,6 @@ footer {
     }
 }
 
-
 @media only screen and (min-width: 993px){
     .nav-style > li { 
         padding-left: 25px;
@@ -623,9 +642,13 @@ footer {
 
     /* Search Bar*/
     .search-bar {
-    position: absolute;
-    right: 150px;
-    padding: 5px;
+        position: absolute;
+        right: 150px;
+        padding: 5px;
+    }
+
+    .form-control {
+        padding:1px;
     }
 
     .search-bar .form-control-feedback {
@@ -641,7 +664,6 @@ footer {
     } 
 
     .form-control-feedback:after{
-
         color: transparent;
     } 
 }

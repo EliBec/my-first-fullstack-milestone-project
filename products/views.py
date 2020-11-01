@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .models import Product, Category, Subcategory, Rating
 from profiles.models import UserProfile
-from checkout.models import Order, OrderLineItem
+from checkout.models import Order
 
 from .forms import ProductProfileForm, RatingForm
 
@@ -132,30 +132,20 @@ def display_product_detail(request, product_id):
     customer_orders = None
     rating_count = 0
 
-
     product = get_object_or_404(Product, pk=product_id)
 
     rating_list = Rating.objects.filter(product=product_id)
-    print(rating_list)
 
     if rating_list is not None:
 
         for rating in rating_list:
             rating_count = rating_count + 1
 
-        print(rating_count)
         if rating_count > 0:
-
             rating_average = product.rating / rating_count
 
-            print(rating_average)
-
-            review = None
-
     if request.user.is_authenticated:
-        print("usuario existe")
         profile = request.user.userprofile
-        print(profile)
 
         # see if there is any order linked to the logged-in user
         customer_orders = Order.objects.filter(user_profile=profile)
@@ -164,6 +154,7 @@ def display_product_detail(request, product_id):
         if order found, then find the items for that order based on the
         product if passed in
         """
+
         for order in customer_orders:
             for item in order.lineitems.all():
                 if item.product.id == product.id:
@@ -171,7 +162,6 @@ def display_product_detail(request, product_id):
                     break
 
         if confirmed_purchase:
-            print("conpra confirmada")
             user_rating = Rating.objects.filter(
                           customer=request.user,
                           product=product_id)
@@ -215,7 +205,10 @@ def add_product(request):
         return redirect(reverse('home'))
 
     if request.method == "POST":
-        #  instance of the ProductProfileForm based on the request data from POST
+        """
+        instantiate  ProductProfileForm
+        # based on the request data from POST
+        """
         product_form_data = ProductProfileForm(request.POST, request.FILES)
         if product_form_data.is_valid():
             product = product_form_data.save()
@@ -233,7 +226,7 @@ def add_product(request):
         'product_form_data': product_form_data,
     }
 
-    template = 'products/addproduct.html'
+    template = 'products/add_product.html'
 
     return render(request, template, context)
 
@@ -265,7 +258,7 @@ def edit_product(request, product_id):
         # instantiate the product form based on product for display
         product_form_data = ProductProfileForm(instance=product)
 
-    template = 'products/editproduct.html'
+    template = 'products/edit_product.html'
 
     context = {
         'product_form_data': product_form_data,
@@ -315,7 +308,9 @@ def add_rating(request, product_id):
                 break
 
     if not confirmed_purchase:
-        messages.error(request, 'You must have purchased this product in order to post a review')
+        messages.error(request,
+                       'You must have purchased this \
+                       product in order to post a review')
         return redirect(reverse('display_product_detail',
                                 args=[product.id]))
 
@@ -355,18 +350,20 @@ def add_rating(request, product_id):
 
     return render(request, template, context)
 
+
 @login_required
 def edit_rating(request, product_id):
 
     confirmed_purchase = False
 
     product = get_object_or_404(Product, pk=product_id)
-    
+
     profile = UserProfile.objects.get(user=request.user)
-    # see if there is any order linked to the logged-in user
+
+    # search if any order linked to the logged-in user
     customer_orders = Order.objects.filter(user_profile=profile)
 
-    # if order found, then find the items for that order based on the 
+    # if order found, then find the items for that order based on the
     # product if passed in
     for order in customer_orders:
         for item in order.lineitems.all():
@@ -375,12 +372,14 @@ def edit_rating(request, product_id):
                 break
 
     if not confirmed_purchase:
-        messages.error(request, 'You must have purchased this product and posted a review in order to edit it')
+        messages.error(request,
+                       'You must have purchased this product\
+                        and posted a review in order to edit it')
         return redirect(reverse('display_product_detail',
                                 args=[product.id]))
 
     if request.method == "POST":
-        rating_form_data = RatingForm(request.POST, instance=user)
+        rating_form_data = RatingForm(request.POST, instance=profile)
         if rating_form_data.is_valid():
             rating_form_data.save()
             messages.success(request,
@@ -401,7 +400,7 @@ def edit_rating(request, product_id):
         'rating_form_data': rating_form_data,
     }
     return render(request, template, context)
-   
+
 
 @login_required
 def delete_rating(request, product_id):
@@ -414,7 +413,7 @@ def delete_rating(request, product_id):
     # see if there is any order linked to the logged-in user
     customer_orders = Order.objects.filter(user_profile=profile)
 
-    # if order found, then find the items for that order based on the 
+    # if order found, then find the items for that order based on the
     # product if passed in
     for order in customer_orders:
         for item in order.lineitems.all():
@@ -423,7 +422,9 @@ def delete_rating(request, product_id):
                 break
 
     if not confirmed_purchase:
-        messages.error(request, 'You must have purchased this product and posted a review in order to delete it')
+        messages.error(request,
+                       'You must have purchased this product and \
+                       posted a review in order to delete it')
         return redirect(reverse('display_product_detail',
                                 args=[product.id]))
 

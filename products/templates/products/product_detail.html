@@ -121,67 +121,69 @@
             </div>        
         {% endif %}       
     </div>
-    <div class="row">
-        <div id="review-section" class="col-7 mb-2">
-            <h5>Reviewed by {{ rating_count }} customer{{ rating_count|pluralize }}</h5>
+    {% if rating_count > 0 %}
+        <div class="row">
+            <div id="review-section" class="col-7 mb-2">
+                <h5>Reviewed by {{ rating_count }} customer{{ rating_count|pluralize }}</h5>
+            </div> 
         </div>
-    </div>
-    <hr>    
-    <div class="row">
-        <div class="col-12 mb-5 rating-wrapper">
-            <p>
-                <span class="mb-2 mt-2">
-                {% for rating in rating_list %}
-                    {% if rating.rating == 5 %}
-                        {% for i in 'xxxxx' %}
-                            <span class="fa fa-star star-checked"></span> 
-                        {% endfor %}
-                    <br>
-                    {% elif rating.rating == 4 %}
-                        {% for i in 'xxxx' %}
-                            <span class="fa fa-star star-checked"></span>
-                        {% endfor %}
-                        {% for i in 'x' %}
-                        <span class="fa fa-star star "></span>
-                        {% endfor%}
-                    <br>
-                    {% elif rating.rating == 3 %}
-                        {% for i in 'xxx' %}
-                            <span class="fa fa-star star-checked"></span>
-                        {% endfor %}
-                        {% for i in 'xx' %}
-                        <span class="fa fa-star "></span>
-                        {% endfor%}
-                    <br>
-                    {% elif rating.rating == 2 %}
-                        {% for i in 'xx' %}
-                            <span class="fa fa-star star-checked"></span>
-                        {% endfor %}
-                        {% for i in 'xxx' %}
-                        <span class="fa fa-star"></span>
-                        {% endfor%}
-                    {% elif rating.rating == 1 %}
-                        {% for i in 'x' %}
-                            <span class="fa fa-star star-checked"></span>
-                        {% endfor %}
-                        {% for i in 'xxxx' %}
-                        <span class="fa fa-star"></span>
-                        {% endfor%}
-                    {% endif %}  
-                </span>
-            </p>    
-            <p class="mt-2"><strong> Posted by: </strong>{{ rating.nickname }} </p>
-            <p><strong>Would you recommend this a friend? </strong> {{ rating.recommend|capfirst}} </p>
-            <p><strong>Comments:</strong> {{ rating.comment }} </p> 
-            <br>
-                {% if rating.customer == request.user and confirmed_purchase %}
-                    <a style="color:darkgreen;" href="{% url 'edit_rating' product.id %}">Edit review</a> |
-                    <a class="text-danger" href="{% url 'delete_rating' product.id %}">Delete review</a>
-                {% endif %}
-            <hr>
-            {% endfor %}
+        <hr>    
+        <div class="row">
+            <div class="col-12 mb-5 rating-wrapper">
+                <p>
+                    <span class="mb-2 mt-2">
+                    {% for rating in rating_list %}
+                        {% if rating.rating == 5 %}
+                            {% for i in 'xxxxx' %}
+                                <span class="fa fa-star star-checked"></span> 
+                            {% endfor %}
+                        <br>
+                        {% elif rating.rating == 4 %}
+                            {% for i in 'xxxx' %}
+                                <span class="fa fa-star star-checked"></span>
+                            {% endfor %}
+                            {% for i in 'x' %}
+                            <span class="fa fa-star star "></span>
+                            {% endfor%}
+                        <br>
+                        {% elif rating.rating == 3 %}
+                            {% for i in 'xxx' %}
+                                <span class="fa fa-star star-checked"></span>
+                            {% endfor %}
+                            {% for i in 'xx' %}
+                            <span class="fa fa-star "></span>
+                            {% endfor%}
+                        <br>
+                        {% elif rating.rating == 2 %}
+                            {% for i in 'xx' %}
+                                <span class="fa fa-star star-checked"></span>
+                            {% endfor %}
+                            {% for i in 'xxx' %}
+                            <span class="fa fa-star"></span>
+                            {% endfor%}
+                        {% elif rating.rating == 1 %}
+                            {% for i in 'x' %}
+                                <span class="fa fa-star star-checked"></span>
+                            {% endfor %}
+                            {% for i in 'xxxx' %}
+                            <span class="fa fa-star"></span>
+                            {% endfor%}
+                        {% endif %}  
+                    </span>
+                </p>    
+                <p class="mt-2"><strong> Posted by: </strong>{{ rating.nickname }} </p>
+                <p><strong>Would you recommend this a friend? </strong> {{ rating.recommend|capfirst}} </p>
+                <p><strong>Comments:</strong> {{ rating.comment }} </p> 
+                <br>
+                    {% if rating.customer == request.user and confirmed_purchase %}
+                        <a style="color:darkgreen;" href="{% url 'edit_rating' product.id %}">Edit review</a> |
+                        <a class="text-danger" href="{% url 'delete_rating' product.id %}">Delete review</a>
+                    {% endif %}
+                <hr>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+     {% endif %}
     <!-- back to top button -->
     {% include 'includes/backtotop.html' %}
 </div>

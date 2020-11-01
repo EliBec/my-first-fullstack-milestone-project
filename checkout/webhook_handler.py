@@ -47,7 +47,6 @@ class StripeWH_Handler:
         """
 
         intent = event.data.object
-        # print(intent)
         payment_int_id = intent.id
         # metadata is a special key in the Stripe payment intent
         cart_session = intent.metadata.cart_session
