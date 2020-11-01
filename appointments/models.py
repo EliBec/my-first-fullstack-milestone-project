@@ -4,8 +4,6 @@ from django.db import models
 from .utils import Preference as Pref
 from profiles.models import UserProfile
 
-# Create your models here.
-
 
 class Appointment(models.Model):
     number = models.CharField(max_length=32, null=False, editable=False)
@@ -31,7 +29,6 @@ class Appointment(models.Model):
         Generate a random, unique order number using UUID
         """
         return uuid.uuid4().hex.upper()
-
 
     def save(self, *args, **kwargs):
         """

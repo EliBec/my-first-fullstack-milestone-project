@@ -8,27 +8,51 @@
 {% block page_content %}
 <div class="container-fluid">
     <div class="row"  id="slideshow">
-        <div class="col-4 banner-home1 slider"> 
-        </div>
-        <div class="col-4 banner-home2 slider"> 
-        </div>
-        <div class="col-4 banner-home3 slider"> 
-        </div>
+        <div class="col-4 banner-home1 slider"> </div>
+        <div class="col-4 banner-home2 slider"></div>
+        <div class="col-4 banner-home3 slider"></div>
     </div>
 
     <div class="overlap"></div>
-    <!--
-    <div class="row">
-        <div class="col-12 highlight-section"></div>
-    </div>
-    -->
 
     <div class="row">
-        <div class="col">
-        {% if welcome_msg %}
-            <p> Aca el mensage: {{ welcome_msg }} </p>
-        {% endif %}
+        <div class="col-12 business-highlight">
+            <h3>LOCAL BIKE SHOP AND ONLINE STORE </h3>
+            <a href="{% url 'products' %}"  class="btn btn-border-style rounded-0 mt-2">
+                <span class="text-uppercase">SHOP NOW</span>
+            </a>
         </div>
+    </div>
+    <div class="row mt-5 mb-5">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="home-block">
+                <div class="text-center mb-4">
+                    <span ><i class="fa fa-wrench icon-style"></i></span>
+                    
+                    <strong><p class="p-2"> SERVICE </p></strong>
+                </div>
+                <p>Our friendly staff is always ready to serve and help and all your bike needs. We also offer kayak and paddleboard storage </p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="home-block">
+                <div class="text-center mb-4">
+                    <span><i class="fa fa-shopping-bag icon-style"></i></span>
+                    <strong><p class="p-2"> SHOP </p></strong>
+                </div>    
+                <p>We offer a wide variety of bike in all styles, paddleboard and kayaks. Plus, all the equipment you need for your next adventure. Stop by our store or order online. We ship within the continental USA</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="home-block">
+                <div class="text-center mb-4">
+                    <span><i class="fa fa-user icon-style"></i></span>
+                    <strong><p class="p-2">ABOUT</p></strong>
+                </div>
+                <p>We love what we do can enjoy sharing it with the community and town visitors. Come see why we are the preferred sporting store for customer of all ages</p>
+            </div>
+        </div>    
+
     </div>
 </div>  
 {% endblock %}

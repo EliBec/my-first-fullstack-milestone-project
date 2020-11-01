@@ -9,6 +9,14 @@
 .prod-list-wrapper {
     background-color: white;
     padding:10px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 0 10px #388e3c;  
+    -moz-box-shadow: 0 0 10px #388e3c;
+    box-shadow: 0 0 10px #388e3c;
+    -o-box-shadow: 0 0 10px #388e3c;
+    -ms-box-shadow: 0 0 10px #388e3c;
+    margin-bottom: 15px;
+    
 }
 
 .prod-wrapper {

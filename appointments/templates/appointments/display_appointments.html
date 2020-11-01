@@ -1,20 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block custom_css %}
-<link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
-{% endblock %}
-
 
 {% block page_header %}
 <div class="container">
-	<div class="top-section"></div>
+    <div class="top-section"></div>
 </div>
 {% endblock %}
 
 {% block page_content %}
-<div class="overlap"></div>
-<div class="container">
+<div class="overlap" id="overlap-section"></div>
+<div class="container" id="container-section" >
     <div class="row">
 		<div class="col">
 			<hr>
@@ -39,9 +35,11 @@
 					{% for appointment in appointments %}
 					<tr>
 						<td>
-							<a href="">
+                            <a href="{% url 'display_appointment_detail' appointment.number %}" title="{{ appointment_number }}">
 								{{ appointment.number|truncatechars:6 }}
 							</a>
+                        
+                         
 						</td>
                         <td>{{ appointment.customer_fullname }}
                             <ul class="list-unstyled">
@@ -58,10 +56,28 @@
 						<td> {{ appointment.reason }}</td>
                         <td> {{ appointment.notes }}</td>
 					</tr>
+                    {% empty %}
+                        There are appointment records for our account.    
 					{% endfor %}
 				</tbody>
 			</table>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block load_last_js %}
+{{ block.super }}
+
+<script type="text/javascript">
+   /* for devices other than cellphones, set the footer to tbe bottom when there is no content on the page */
+        var wWrapper = document.getElementById('overlap-section').scrollWidth;
+        var hContainer = document.getElementById('container-section').scrollHeight;
+
+        if (wWrapper > 375  && hContainer >= 129 && hContainer <= 300) {
+            document.getElementById("footer-section").setAttribute("style","position:absolute; bottom:0;");
+        }  
+</script>
+
 {% endblock %}

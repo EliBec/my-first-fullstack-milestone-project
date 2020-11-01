@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block page_content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 banner-services">
+        </div>
+    </div>
+
+    <div class="overlap"></div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mt-5 mb-5">
+                <i class="fa fa-cogs" style="font-size:84px;"></i>
+            </div>
+            <div class="service-p">
+                <p>We are a full service biicyle ship. We will give you a repair cost estimate before you leave your bicycle (or by phone if you are doing a drop-off) with us for service. We will discuss with you what you would like repaired and come to a happy solution for your bicycle.</p>
+                <p>If you are from out of town or need your bicycle back in a hurry, just let us know and we will do our best to repair it right away! Yes bicycles sometimes need emergency repairs!!</p>
+                <p>We also repair any brand of bicycle on the market.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5 mt-5" >
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="service-block">
+                <h6 class="text-center"><strong>BASIC Tune-Up - $75</strong></h6>
+                <hr>
+                <ul>
+                    <li>Wheel True - $15 per wheel = $30</li>
+                    <li>Brake Adjustment - $10 per wheel = $20</li>
+                    <li>Derailleur Adjustment - $10 each = $20</li>
+                    <li>Derailleur Hanger Alignment - $15</li>
+                    <li>Hub Bearing Adjustment - $12 per wheel = $24</li>
+                    <li>Headset Adjustment - $10 </li>
+                    <li>Bottom Bracket Adjustment - $15 </li>
+                    <li>Lube Chain - $6 </li>
+                    <br>
+                    <p>Total Labor Before Discount $140 = $65 in SAVINGS! </p>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="service-block">
+                <h6 class="text-center"><strong>STANDARD Tune-Up $125 </strong></h6>
+                <hr>
+                <ul>
+                    <li>Wheel True - $15 per wheel = $30</li>
+                    <li>Brake Adjustment - $10 per wheel = $20</li>
+                    <li>Derailleur Adjustment - $10 each = $20</li>
+                    <li>Derailleur Hanger Alignment - $15</li>
+                    <li>Hub Bearing Adjustment - $12 per wheel = $24</li>
+                    <li>Headset Adjustment - $10 </li>
+                    <li>Bottom Bracket Adjustment - $15 </li>
+                    <li>Lube Chain - $6 </li>
+                    <li>Drive Train Clean - $40</li>
+                    <li>Bike Wash - $20</li>
+                    <br>
+                    <p>Total Labor Before Discount $205 = $80 in SAVINGS! </p>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="service-block">
+                <h6 class="text-center"><strong>PREMIUM Tune-Up $250</strong></h6>
+                <hr>
+                <ul>
+                    <li>Wheel True - $15 per wheel = $30</li>
+                    <li>Brake Adjustment - $10 per wheel = $20</li>
+                    <li>Derailleur Adjustment - $10 each = $20</li>
+                    <li>Derailleur Hanger Alignment - $15</li>
+                    <li>Hub Bearing Adjustment - $12 per wheel = $24</li>
+                    <li>Headset Adjustment - $10 </li>
+                    <li>Bottom Bracket Adjustment - $15 </li>
+                    <li>Lube Chain - $6 </li>
+                    <li>Drive Train Clean - $40</li>
+                    <li>Bike Wash - $20</li>
+                    <li>Bottom Bracket Service - $30 </li>
+                    <li>Brake Pad Install  - $15 per wheel = $30 </li>
+                    <li>Chain Install- $10 </li>
+                    <li>Headset Service - $25 </li>
+                    <li>Bar Tape/Grip Install - $15 </li>
+                    <li>New Cables/ New Housing - $80 </li>
+                    <br>
+                    <p>Total Labor Before Discount $395 = $145 in SAVINGS!</p>
+                </ul>
+            </div>
+        </div>
+    </div>   
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="service-p">
+                <p>Conveniently make an online appointment, drop your bike and we will take care of the rest.</p> 
+            </div>    
+        </div>
+    </div>
+    <div class="row mb-5 mt-5" >
+        <div class="col-12 text-center" >
+            <a href="{% url 'add_appointment' %}">
+                <div class="btn std-button rounded-0 text-uppercase">
+                    <span class="text-uppercase">Book a Service Appointment</span>
+                </div>    
+            </a>
+        </div>    
+    </div>
+
+</div>  
+{% endblock %}

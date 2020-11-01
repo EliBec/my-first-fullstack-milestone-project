@@ -14,53 +14,54 @@
 
 {% block page_content %}
 <div class="overlap" id="overlap-section"></div>
-<div class="container" id="container-section" >
-
-    {% if search_method == "menusearch" %}
-        <div class="row">
-            <div class="col-12 mt-4 ">
-                <h2>All Products</h2>
+<div class="container" id="container-section">
+    <div class="mb-5 mt-5" >
+        {% if search_method == "menusearch" %}
+            <div class="row mb-5 mt-5">
+                <div class="col-12 mt-4 ">
+                    <h2>All Products</h2>
+                </div>
             </div>
-        </div>
 
-    {% elif search_method == "searchform" %}
-        <div class="row">
-            <div class="col-12 mt-4">
-                {% if search_term %}
-                    <h5>Your Search:   <small> "{{ search_term }}"</small></h5>
-                        <p> Number of results: {{ products|length }}</p>
-                {% endif %}
+        {% elif search_method == "searchform" %}
+            <div class="row">
+                <div class="col-12 mt-4">
+                    {% if search_term %}
+                        <h5>Your Search:   <small> "{{ search_term }}"</small></h5>
+                            <p> Number of results: {{ products|length }}</p>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    {% endif %}    
-    <hr>
+        {% endif %}    
+        <hr>
 
-    {% if products|length > 1 %}
-        <!-- sort/filter drow-down -->
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
-                <p>
-                    <label class="pr-2"><strong> Sort by: </strong></label>
-                    <select class="sorting-box" id="sort-option">
-                        <option value="reset">Sort by...</option>
-                        <option value = "price_asc"><a href="{% url 'products' %}?sort=price&direction=asc">Price Low to High</a></option> 
-                        <option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
-                        <option value = "brand_asc"><a href="{% url 'products' %}?sort=brand&direction=asc">Brand A to Z</a></option>  
-                        <option value = "brand_desc"><a href="{% url 'products' %}?sort=brand&direction=desc">Brand Z to A</a></option>  
-                        <option value = "category_asc"><a href="{% url 'products' %}?sort=category&direction=asc">Category A to Z</a></option>  
-                        <option value = "category_desc"><a href="{% url 'products' %}?sort=category&direction=desc">Category Z to A</a></option> 
-                    </select>
-                </p>
+        {% if products|length > 1 %}
+            <!-- sort/filter drow-down -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+                    <p>
+                        <label class="pr-2"><strong> Sort by: </strong></label>
+                        <select class="sorting-box" id="sort-option">
+                            <option value="reset">Sort by...</option>
+                            <option value = "price_asc"><a href="{% url 'products' %}?sort=price&direction=asc">Price Low to High</a></option> 
+                            <option value = "price_desc"><a href="{% url 'products' %}?sort=price&direction=desc">Price High to Low</a></option>  
+                            <option value = "brand_asc"><a href="{% url 'products' %}?sort=brand&direction=asc">Brand A to Z</a></option>  
+                            <option value = "brand_desc"><a href="{% url 'products' %}?sort=brand&direction=desc">Brand Z to A</a></option>  
+                            <option value = "category_asc"><a href="{% url 'products' %}?sort=category&direction=asc">Category A to Z</a></option>  
+                            <option value = "category_desc"><a href="{% url 'products' %}?sort=category&direction=desc">Category Z to A</a></option> 
+                        </select>
+                    </p>
+                </div>
             </div>
-        </div>
-    {% endif %} 
-        
-    <!-- products display section-->
-    {% include 'includes/productlist_display.html' %}
+        {% endif %} 
+            
+        <!-- products display section-->
+        {% include 'includes/productlist_display.html' %}
 
-    <!-- back to top button -->
-    {% include 'includes/backtotop.html' %}
-  
+        <!-- back to top button -->
+        {% include 'includes/backtotop.html' %}
+
+    </div> 
 </div>
 
 {% endblock %}

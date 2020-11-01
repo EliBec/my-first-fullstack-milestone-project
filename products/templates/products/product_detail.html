@@ -36,7 +36,7 @@
             </nav>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-5">
         {% if product %}
             <div class="col-lg-6 col-md-6 col-sm-12 mb-5"> 
                 {% if product.image %}
@@ -122,7 +122,7 @@
         {% endif %}       
     </div>
     {% if rating_count > 0 %}
-        <div class="row">
+        <div class="row mb-5">
             <div id="review-section" class="col-7 mb-2">
                 <h5>Reviewed by {{ rating_count }} customer{{ rating_count|pluralize }}</h5>
             </div> 

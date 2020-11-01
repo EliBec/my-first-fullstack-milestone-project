@@ -21,12 +21,10 @@ body {
 }
 
 
-/* eb*/
 .nav-link {
     transition: all 250ms ease-in-out;
 }
 
-/*eb*/
 /* Override font folor on top navigation bar */
 .navbar-nav .nav-item:hover .nav-link  {
     color: #36250C !important;
@@ -51,6 +49,11 @@ body {
     transition: all 250ms ease-in-out;
 }
 
+.cart-count {
+    color: rgb(255, 208, 0);
+    font-weight: 800;
+}
+
 
 
 .shop-menu, .shop-menu > ul {
@@ -67,12 +70,12 @@ body {
 .drop-pad {
     padding:10px;
     margin-left: 25px; 
-    background: rgb(202, 245, 199);  /* #CDFCC5; */
+    background: rgb(202, 245, 199);
 }
 
 .dropdown-divider {
     margin:.2rem 0;
-    border-top: .1px solid black; /* rgb(137, 145, 136);*/
+    border-top: .1px solid black;
 }
 
 #navbar-icons-desktop{
@@ -90,8 +93,12 @@ body {
 
 .logo-section{
     position: fixed;
-    left: 43%;  /* 28%;  */
-    top: 1.5%;  /* 1%; */
+    left: 30%; 
+}
+
+.logo {
+    width: 35%;
+    height: 35%;
 }
 
 .drop-left {
@@ -127,21 +134,45 @@ body {
 
 
 /****** Banner Section *******/
+
+.banner-home1,.banner-home2,.banner-home3 {
+    border-left:5px solid rgb(202, 245, 199); 
+    border-right:5px solid rgb(202, 245, 199); 
+}
+
 .banner-home1 {
     background:url('/media/kayak_banner.jpeg') no-repeat center center;
     background-size: cover;
-    height: 85vh;
+    height: 40vh;
 }
 
 .banner-home2 {
     background:url('/media/bicycle_banner.jpeg') no-repeat center center;
     background-size: cover;
-    height: 85vh;
+    height: 40vh;
 }
 .banner-home3 {
     background:url('/media/paddleboard_banner.jpeg') no-repeat center center;
     background-size: cover;
-    height: 85vh;
+    height: 40vh;
+}
+
+.banner-services {
+    background:url('/media/banner-services.jpg') no-repeat center center;
+    background-size: cover;
+    height: 40vh;
+}
+
+.banner-about {
+    background:url('/media/banner_about_us.jpg') no-repeat center center;
+    background-size: cover;
+    height: 40vh;
+}
+
+.banner-rentals {
+    background:url('/media/paddleboard_banner.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 40vh;
 }
 
 /**** Google Maps ****/
@@ -157,6 +188,22 @@ body {
     background-color: rgb(202, 245, 199);
 }
 
+.business-highlight{
+    width: 100%;
+    height: auto; /*15vh; */
+    background-color: green;
+    color: white; 
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+}
+
+.icon-style {
+    font-size:60px !important;
+    color:#36250C;
+}
+
+
 
 .overlap {
   position: fixed;
@@ -165,7 +212,7 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgb(202, 245, 199); /* rgb(227, 241, 226);*/
+  background-color: rgb(202, 245, 199);
   z-index: -1;
   }
 
@@ -211,6 +258,7 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 }
 
 
+/* Product pages */
 .product-title, .product-brand {
     color: #1A8849;
     margin:0%;
@@ -257,6 +305,31 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
     color:#388e3c;
 }
 
+/******** Services page **********/
+
+.service-block, .home-block {
+    padding:20px;
+    border-radius: 4px;
+    background-color: /*#f1f3f5; */ rgb(240, 230, 216);
+     -webkit-box-shadow: 0 0 10px #388e3c;  
+    -moz-box-shadow: 0 0 10px #388e3c;
+     box-shadow: 0 0 10px #388e3c;
+    -o-box-shadow: 0 0 10px #388e3c;
+    -ms-box-shadow: 0 0 10px #388e3c;
+    height:auto;
+    width: 100%; 
+}
+
+.service-p {
+    padding: 40px 90px 40px 90px;
+}
+
+
+/********* About us page *********/
+.store-img {
+    width: 100%;
+    padding: 15px;
+}
 
 
 /****** Back to top arrow button *******/
@@ -403,7 +476,7 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 }
 
 .hr-bg {
-    background-color: #fafafa; /* #cccfcd; */
+    background-color: #fafafa; 
 }
 
 .links-align {
@@ -412,7 +485,6 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 
 
 /* Product Form */
-
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -483,10 +555,9 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 }
 
 /***** allauth forms styling ****/
-
 .allauth-form-inner-content p {
     margin-top: 1.5rem; /* mt-4 */
-    color: #6c757d; /* text-secondary */
+    color: #6c757d;
 }
 
 .allauth-form-inner-content input {
@@ -504,7 +575,6 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 
 .allauth-form-inner-content button,
 .allauth-form-inner-content input[type='submit'] {
-	/* btn */
 	display: inline-block;
     font-weight: 400;
     color: #fff;
@@ -514,14 +584,12 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    /*background-color: #000;
-    border: 1px solid #000;*/
     background-color: #388e3c;
     border-color: #388e3c;
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: 3px; /* 0; */
+    border-radius: 3px;
 
     /* standard bootstrap btn transitions */
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -535,15 +603,15 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 }
 
 .allauth-form-inner-content a {
-	color:  #17a2b8; /* text-info */
+	color:  #17a2b8; 
 }
 
 .form-control:focus {
     color: #495057;
     background-color: #fff;
-    border-color:  rgb(202, 245, 199); /*#80bdff;*/
+    border-color:  rgb(202, 245, 199); 
     outline: 0;
-    box-shadow: 0 0 0 0.1rem  #1A8849;  /*rgba(0,123,255,.25); */
+    box-shadow: 0 0 0 0.1rem  #1A8849; 
 }
 
 /***************  Footer *****************/
@@ -573,7 +641,7 @@ footer {
 
 .copyright-statement {
     font-size: 12px;
-    text-align: center; /* eb */
+    text-align: center;
  }
 
 #menu-widget-2 ul {
@@ -617,8 +685,7 @@ footer {
 @media (min-width: 1024px) and (max-width:1030px) {
     .logo-section {
             position: fixed;
-            left:52%;  /*44%; */
-            top: 1.5%; /* 1%; */
+            left:45%;
         }
     .top-section {
         padding-top: 150px;
@@ -631,6 +698,16 @@ footer {
         display: inline-block;
         position: static;
     }
+
+    .banner-home1,
+    .banner-home2,
+    .banner-home3, 
+    .banner-rentals,
+    .banner-about, 
+    .banner-services {
+        height: 85vh;
+    }
+
 }
 
 @media only screen and (min-width: 993px){
@@ -672,8 +749,7 @@ footer {
 @media only screen and (min-width: 767px) and (max-width:1020px){
     .logo-section {
             position: fixed;
-            left:45%;  /*44%; */
-            top: 1%; /* 1%; */
+            left:42%; 
         }
 
     .links-align {
@@ -689,4 +765,5 @@ footer {
     #a-padding{ 
         padding-right: 5px;
     }
+
 }

@@ -13,13 +13,13 @@
     <div class="row">
 		<div class="col">
 			<hr>
-			<h2 class="logo-font mb-4">Make Your Appoinemtn</h2>
+			<h2 class="logo-font mb-4">Make Your Service Appointment</h2>
 			<hr>
 		</div>
 	</div> 
     <div class="row">
         <div class="col-7">
-            <p><strong>Please fill out this form to book an appointment</strong></p>
+            <p>Please fill out this form to book an appointment</p>
             <form method="POST" action="{% url 'add_appointment' %}" class="form mb-2" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% for field in appointment_form_data %}
@@ -32,8 +32,8 @@
                     {% endif %}    
                 {% endfor %}
                 <div class="text-right">
-                    <a class="btn btn-border-style rounded-0 mt-5 mr-3" href="{% url 'appointments' %}">Cancel</a>
-                    <button class="btn btn-border-style rounded-0" type="submit">Book Appointment</button>
+                    <a class="btn btn-border-style rounded-0 mr-3" href="{% url 'appointments' %}">Cancel</a>
+                    <button class="btn std-button rounded-0 text-uppercase" type="submit">Book Appointment</button>
                 </div> 
             </form>
         </div>
