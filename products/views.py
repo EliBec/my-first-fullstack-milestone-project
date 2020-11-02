@@ -50,6 +50,11 @@ def display_all_products(request):
             products = products.filter(query_result)
             search_method = "searchform"
 
+    else:
+        # default to sort by category in ascending price
+        products = sorting_by('category', 'asc', products)
+
+
     context = {
         "products": products,
         "search_term": search_query,

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title_extension %}  - Product Detail {% endblock %} 
+
 {% block custom_css %}
 <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
 {% endblock %}
@@ -57,7 +59,7 @@
                         {% if rating_count == 0 %}
                          <span class="text-muted"> No Reviews </span>
                         {% else %}
-                            <!-- link wil take the user to the review sectio on the bottom on the page -->
+                            <!-- link takes the user to the review section on the bottom on the page -->
                             <a class="text-green" href="#review-section">  {{ rating_count }} Review{{ rating_count|pluralize }}</a>
                         {% endif %} 
                         {% if confirmed_purchase and not user_rating %}

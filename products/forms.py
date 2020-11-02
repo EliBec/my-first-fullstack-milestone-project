@@ -8,7 +8,7 @@ class ProductProfileForm(forms.ModelForm):
         model = Product
         # only include the fields that are editable by user
         fields = ('category', 'subcategory', 'name',
-                  'short_desc', 'long_desc', 'sku', 'brand',
+                  'short_desc', 'sku', 'brand',
                   'price', 'has_sizes', 'image_url', 'image', 'style')
 
     image = forms.ImageField(label='Image',
