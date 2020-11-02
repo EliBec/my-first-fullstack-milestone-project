@@ -373,9 +373,33 @@ Purchase ticket functionality has not been implemented yet, so Purchase Ticket b
 8. comment out the default database in settings.py and replace the values with d_database_url and config var DATABASE_URL from heroku
 9. Run migrations: python3 manage.py migrate
 10. Create superuser
-11. Use gunicorn
+11. Install unicorn
+12. Create Procfile and add web: gunicorn becks_outdoors.wsgi:application
+13. Go to heroku and set DISABLE_COLLECTSTATIC=1 so that heroku won't try to collectstatic files when deploying
+14. Add the host in the ALLOWED_HOSTS in settings.py
+15. commit and push to github
+16. push to heroku (git push heroku master).Might need to initalize heroku first (heroku git:remote -a name of the app
+17. enable automatic deployment in heroku
+18. Generate an automatic DJANGO secret key (using django online generator) and add it as a variable in heroku
+19. Create AWS S3 account, set groups and policies and import the static files and media files
+20. Add Stripe's secret and public keys in heroku
+21. Set a new webhook receiver in Stripe and copy the webhook key in heroku
 
 
+### Clone Repository
+To clone the repository the steps below must be taken:
+
+Select the Repository from the Github Dashboard.
+
+Click on the "Clone or download" dropdown button which is located beside the Gitpod button to the right.
+
+Click on the "clipboard icon" to the right to copy the web URL.
+
+Open your preferred Integrated Development Environment (IDE) and navigate to the terminal window.
+
+Change the directory to where you want to clone the repository too.
+
+Paste the Git URL https://github.com/EliBec/my-first-fullstack-milestone-project.git and click "Ok".
 
 
 ## Credits
