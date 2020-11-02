@@ -372,6 +372,8 @@ Purchase ticket functionality has not been implemented yet, so Purchase Ticket b
 7. import the dj-database url in settings.py (import dj_database_url)
 8. comment out the default database in settings.py and replace the values with d_database_url and config var DATABASE_URL from heroku
 9. Run migrations: python3 manage.py migrate
+10. Create superuser
+11. Use gunicorn
 
 
 

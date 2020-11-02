@@ -1,0 +1,1 @@
+web: gunicorn becks_outdoors.wsgi:application
