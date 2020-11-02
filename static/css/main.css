@@ -169,8 +169,8 @@ body {
     height: 40vh;
 }
 
-.banner-rentals {
-    background:url('/media/paddleboard_banner.jpeg') no-repeat center center;
+.banner-404-505 {
+    background:url('/media/404-505.jpeg') no-repeat center center;
     background-size: cover;
     height: 40vh;
 }
@@ -702,9 +702,10 @@ footer {
     .banner-home1,
     .banner-home2,
     .banner-home3, 
-    .banner-rentals,
     .banner-about, 
-    .banner-services {
+    .banner-services,
+    .banner-404-505,
+     {
         height: 85vh;
     }
 
