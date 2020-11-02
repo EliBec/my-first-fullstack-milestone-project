@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block page_content %}
-<div class="overlap"></div>
+<div class="overlay"></div>
 <div class="container mb-2">
     <div class="row">
             <div class="col">
@@ -143,7 +143,6 @@
         var itemId = $(this).attr('id').split('remove_')[1];
         var product_size = $(this).data('product_size');
         var url = `/cart/remove_from_cart/${itemId}/`;
-        console.log(url)
         var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': product_size};
 
         $.post(url, data)

@@ -15,7 +15,7 @@
 
 
 {% block page_content %}
-<div class="overlap" id="overlap-section"></div>
+<div class="overlay" id="overlay-section"></div>
 <div class="container" id="container-section">
 
     <!-- breadcrumb -->
@@ -91,10 +91,8 @@
 <script type="text/javascript">
 
     /* for devices other than cellphones, set the footer to tbe bottom when there is no content on the page */
-    var wWrapper = document.getElementById('overlap-section').scrollWidth;
+    var wWrapper = document.getElementById('overlay-section').scrollWidth;
     var hContainer = document.getElementById('container-section').scrollHeight;
-    console.log(wWrapper);
-    console.log(hContainer);
 
     if (wWrapper >= 450 && wWrapper <= 1024  && hContainer >= 129)  {
         document.getElementById("footer-section").setAttribute("style","position:absolute; bottom:0;");

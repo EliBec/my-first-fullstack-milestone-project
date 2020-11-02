@@ -15,7 +15,7 @@
 
 
 {% block page_content %}
-<div class="overlap" id="overlap-section"></div>
+<div class="overlay" id="overlay-section"></div>
 <div class="container" id="container-section">
     <div class="mb-5 mt-5" >
         {% if search_method == "menusearch" %}
@@ -75,7 +75,7 @@
 
 <script type="text/javascript">
    /* for devices other than cellphones, set the footer to tbe bottom when there is no content on the page */
-        var wWrapper = document.getElementById('overlap-section').scrollWidth;
+        var wWrapper = document.getElementById('overlay-section').scrollWidth;
         var hContainer = document.getElementById('container-section').scrollHeight;
 
         if (wWrapper > 375  && hContainer >= 129 && hContainer <= 300) {

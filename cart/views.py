@@ -6,6 +6,7 @@ from products.models import Product
 
 
 # Create your views here.
+
 def display_cart(request):
     return render(request, 'cart/cart.html')
 

@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block page_content %}
-<div class="overlap"></div>
+<div class="overlay"></div>
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -72,7 +72,6 @@
                 </div>
             </div>
         </div>
-	    {# if user.is_authenticated #}
 		<div class="col-12 col-lg-6">
 			<p>Please fill-in your information needed to process your order</p>
 			<form action="{% url 'checkout' %}" method="POST" id="checkout-form">

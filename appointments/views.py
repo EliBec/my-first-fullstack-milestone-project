@@ -15,9 +15,9 @@ from .forms import AppointmentForm
 def display_appointments(request):
 
     if not request.user.is_authenticated:
-        messages.error(request, 'Sorry, You must signup for an account \
-                       in order to make an appointment.')
-        return redirect(reverse('services'))
+        messages.info(request, 'Please create or login to your account \
+                       in order to see you appointment history.')
+        return redirect(reverse('account_signup'))
 
     # get the user info first
     user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -38,9 +38,9 @@ def display_appointments(request):
 def display_appointment_detail(request, appointment_number):
 
     if not request.user.is_authenticated:
-        messages.error(request, 'Sorry, You must signup for an account \
-                       in order to make an appointment.')
-        return redirect(reverse('services'))
+        messages.info(request, 'Please login in order to see \
+                       your appointment information.')
+        return redirect(reverse('account_signup'))
 
     appointment = get_object_or_404(Appointment, number=appointment_number)
 
@@ -58,9 +58,9 @@ def display_appointment_detail(request, appointment_number):
 def add_appointment(request):
 
     if not request.user.is_authenticated:
-        messages.error(request, 'Sorry, You must signup for an account \
+        messages.info(request, 'Please create or log in to your account \
                        in order to make an appointment.')
-        return redirect(reverse('services'))
+        return redirect(reverse('account_signup'))
         #  profile = UserProfile.objects.get(user=request.user)
         #  Attach the user's profile to the apointment
 

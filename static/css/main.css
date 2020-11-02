@@ -6,13 +6,10 @@ body {
     font-family: 'Poppins', sans-serif;
 } 
 
-.nav-wrapper {
+.nav-wrapper, .navbar{
     background-color: #36A21E !important;
 }
 
-.navbar {
-   background-color: #36A21E !important; 
-}
 
 .navbar-nav > li > a {
     color: #fafafa !important;
@@ -53,7 +50,6 @@ body {
     color: rgb(255, 208, 0);
     font-weight: 800;
 }
-
 
 
 .shop-menu, .shop-menu > ul {
@@ -140,37 +136,35 @@ body {
     border-right:5px solid rgb(202, 245, 199); 
 }
 
-.banner-home1 {
+
+.banner-home1, .banner-home2, .banner-home3 {
     background:url('/media/kayak_banner.jpeg') no-repeat center center;
-    background-size: cover;
-    height: 40vh;
 }
 
 .banner-home2 {
     background:url('/media/bicycle_banner.jpeg') no-repeat center center;
-    background-size: cover;
-    height: 40vh;
 }
+
 .banner-home3 {
     background:url('/media/paddleboard_banner.jpeg') no-repeat center center;
-    background-size: cover;
-    height: 40vh;
 }
 
 .banner-services {
     background:url('/media/banner-services.jpg') no-repeat center center;
-    background-size: cover;
-    height: 40vh;
 }
 
 .banner-about {
     background:url('/media/banner_about_us.jpg') no-repeat center center;
-    background-size: cover;
-    height: 40vh;
 }
 
 .banner-404-505 {
     background:url('/media/404-505.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 40vh;
+}
+
+.banner-services,
+.banner-about, .banner-404-505 {
     background-size: cover;
     height: 40vh;
 }
@@ -190,7 +184,7 @@ body {
 
 .business-highlight{
     width: 100%;
-    height: auto; /*15vh; */
+    height: auto;
     background-color: green;
     color: white; 
     text-align: center;
@@ -203,9 +197,7 @@ body {
     color:#36250C;
 }
 
-
-
-.overlap {
+.overlay {
   position: fixed;
   display: block;
   width: 100%;
@@ -224,8 +216,7 @@ body {
 
 
 .breadcrumb {
-    background-color:  rgb(202, 245, 199) !important;
-    
+    background-color:  rgb(202, 245, 199) !important;    
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -513,7 +504,8 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 
 
 /****** Buttons ********/
-.btn-border-style {
+
+.btn-border-style, .btn-border-style-lite {
     border:1px #36250C solid;
     background:#fafafa;
     color: black !important; 
@@ -527,19 +519,12 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
     color: #fafafa !important; 
 }
 
-.btn-border-style-lite {
-    border:1px #36250C solid;
-    background:#fafafa;
-    color: black !important; 
-    border-radius: 3px !important;
-}
 
 .btn-border-style-lite:hover,
 .btn-border-style-lite:active,
 .btn-border-style-lite:focus {
     background:  rgb(215, 233, 214);
 }
-
 
 .std-button {
     border:1px black solid;
@@ -556,7 +541,7 @@ ol.breadcrumb li a,  ol.breadcrumb li i {
 
 /***** allauth forms styling ****/
 .allauth-form-inner-content p {
-    margin-top: 1.5rem; /* mt-4 */
+    margin-top: 1.5rem;
     color: #6c757d;
 }
 
@@ -704,8 +689,7 @@ footer {
     .banner-home3, 
     .banner-about, 
     .banner-services,
-    .banner-404-505,
-     {
+    .banner-404-505 {
         height: 85vh;
     }
 
